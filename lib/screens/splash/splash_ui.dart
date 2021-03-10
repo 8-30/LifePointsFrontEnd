@@ -6,8 +6,14 @@ class SplashUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Center(
-        child: Text("HOLA"),
+        child: Text("Second route"),
       ),
     );
   }
