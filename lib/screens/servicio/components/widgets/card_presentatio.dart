@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_point/models/empleado_model.dart';
+import 'package:life_point/models/insumo_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/screens/solicitar_servicio/solicitar_servicio_ui.dart';
 
@@ -7,10 +8,12 @@ class CardPresentation extends StatelessWidget {
   final TextStyle estiloTexto = new TextStyle(color: Colors.white);
   final PersonaModel persona;
   final EmpleadoModel empleado;
+  final List<InsumoModel> insumos;
   CardPresentation({
     Key key,
     this.persona,
     this.empleado,
+    this.insumos,
   }) : super(key: key);
 
   @override
@@ -60,18 +63,14 @@ class CardPresentation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                      children: [
-                        Text("Mouse: "),
-                        Text("Teclado: "),
-                        Text("Computadora: "),
-                      ],
+                      children: new List.generate(insumos.length,
+                          (index) => new Text(insumos[index].nombre + ": ")),
                     ),
                     Column(
-                      children: [
-                        Text(" 0.5"),
-                        Text(" 0.5"),
-                        Text(" 0.5"),
-                      ],
+                      children: new List.generate(
+                          insumos.length,
+                          (index) =>
+                              new Text(insumos[index].tarifa.toString())),
                     )
                   ],
                 ),

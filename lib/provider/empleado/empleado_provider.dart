@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:life_point/models/empleado_model.dart';
 
 class EmpleadoApiProvider {
-  final String _endpoint = "http://192.168.1.108:8000/api/empleado/";
+  //final String _endpoint = "http://192.168.1.108:8000/api/empleado/";
+  final String _endpoint = "http://192.168.100.2:8000/api/empleado/";
   final Dio _dio = Dio();
 
   Future<List<EmpleadoModel>> getAllEmpleados() async {

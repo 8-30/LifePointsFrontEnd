@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:life_point/models/empleado_model.dart';
-import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/administrado_bloc.dart';
 import 'package:life_point/provider/empleado/empleado_repository.dart';
 import 'package:life_point/screens/home/components/widgets/card_presentatio.dart';

@@ -2,7 +2,7 @@ class InsumoModel {
   int idInsumo;
   int idInsumoEmpleado;
   String nombre;
-  String tarifa;
+  double tarifa;
   String description;
 
   InsumoModel({
