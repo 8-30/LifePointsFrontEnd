@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/administrado_bloc.dart';
+import 'package:life_point/provider/empleado/empleado_repository.dart';
 import 'package:life_point/screens/home/components/widgets/card_presentatio.dart';
 
 class HomeBody extends StatefulWidget {
@@ -12,6 +14,7 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody> {
   AdministradorBloc administradorBloc = AdministradorBloc();
+  EmpleadoRepository _empleadoRepository = EmpleadoRepository();
   @override
   void initState() {
     super.initState();
@@ -23,12 +26,17 @@ class _HomeBodyState extends State<HomeBody> {
     return Container(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-        child: StreamBuilder<PersonaModel>(
-            stream: administradorBloc.subject.stream,
-            builder: (context, AsyncSnapshot<PersonaModel> snapshot) {
+        child: FutureBuilder(
+            future: _empleadoRepository.getAllEmpleados(),
+            builder: (context, AsyncSnapshot<List<EmpleadoModel>> snapshot) {
               return snapshot.hasData
-                  ? CardPresentation(
-                      persona: snapshot.data,
+                  ? ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return CardPresentation(
+                          persona: snapshot.data[index].persona,
+                        );
+                      },
                     )
                   : CircularProgressIndicator();
             }),

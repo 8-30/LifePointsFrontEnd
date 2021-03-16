@@ -1,11 +1,14 @@
 import 'dart:ffi';
 
+import 'package:life_point/models/person_model.dart';
+
 class EmpleadoModel {
   int idEmpleado;
   String empresa;
   double tarifa;
-  String calificacion;
+  double calificacion;
   String descripcion;
+  PersonaModel persona;
 
 //  Empleado Empleado;
   EmpleadoModel({
@@ -14,6 +17,7 @@ class EmpleadoModel {
     this.tarifa,
     this.calificacion,
     this.descripcion,
+    this.persona,
   });
 
   static EmpleadoModel fromJson(Map<String, dynamic> json) {
@@ -21,8 +25,9 @@ class EmpleadoModel {
       idEmpleado: json['idEmpleado'],
       empresa: json['empresa'],
       tarifa: json['tarifa'],
-      calificacion: json['calificacion'],
+      calificacion: json['calificacion']?.toDouble(),
       descripcion: json['descripcion'],
+      persona: PersonaModel.fromJson(json['persona']),
     );
   }
 
