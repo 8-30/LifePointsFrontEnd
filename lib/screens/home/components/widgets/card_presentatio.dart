@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_point/models/person_model.dart';
-import 'package:life_point/screens/splash/splash_ui.dart';
+import 'package:life_point/screens/servicio/detalle_servicio_ui.dart';
 
 class CardPresentation extends StatelessWidget {
   final TextStyle estiloTexto = new TextStyle(color: Colors.white);
@@ -15,7 +15,7 @@ class CardPresentation extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SplashUI()),
+        MaterialPageRoute(builder: (context) => DetalleServicioUI()),
       ),
       child: Card(
         color: Colors.black54,

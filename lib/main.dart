@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: 'home',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       routes: {
         '/': (BuildContext context) => SplashUI(),
         'login': (BuildContext context) => LoginUI(),

@@ -9,7 +9,6 @@ class HomeUI extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Servicios"),
-        backgroundColor: Colors.red,
       ),
       body: HomeBody(),
     );

@@ -1,7 +1,9 @@
+import 'dart:ffi';
+
 class EmpleadoModel {
   int idEmpleado;
   String empresa;
-  String tarifa;
+  double tarifa;
   String calificacion;
   String descripcion;
 
