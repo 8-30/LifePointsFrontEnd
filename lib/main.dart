@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (BuildContext context) => SplashUI(),
         'login': (BuildContext context) => LoginUI(),
-        'home': (BuildContext context) => HomeUI()
+        'home': (BuildContext context) => HomeUI(),
+        'solicitar-servicio': (BuildContext context) => SolicitarServicioUI()
       },
     );
   }
