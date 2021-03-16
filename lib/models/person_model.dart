@@ -2,7 +2,7 @@ class PersonaModel {
   int idPersona;
   String nombre;
   String apellido;
-  DateTime nacimiento;
+  String nacimiento;
   String email;
   String direccion;
   String telefono;
@@ -29,7 +29,7 @@ class PersonaModel {
       idPersona: json['idPersona'],
       nombre: json['nombre'],
       apellido: json['apellido'],
-      nacimiento: json['nacimiento'],
+      nacimiento: null,
       email: json['email'],
       direccion: json['direccion'],
       telefono: json['telefono'],

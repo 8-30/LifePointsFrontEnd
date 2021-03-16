@@ -18,7 +18,7 @@ class ServicioBody extends StatelessWidget {
                 direccion: "Hernan GMoiner Pasaje 13",
                 telefono: "0979169244",
                 genero: "Masculino",
-                nacimiento: DateTime.now(),
+                //nacimiento: DateTime.now(),
                 foto:
                     'https://scontent.fuio1-1.fna.fbcdn.net/v/t1.0-9/50519850_2202166903161848_8526895222397861888_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=-GjsPnq-UHYAX_xlMpC&_nc_ht=scontent.fuio1-1.fna&oh=9ed968b13aa96463eae49c45b3571214&oe=6076B0EC',
                 credencial: "",

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:life_point/models/person_model.dart';
 
 class AdministradorApiProvider {
-  final String _endpoint = "http://127.0.0.1:8000/api/persona/1";
+  final String _endpoint = "http://192.168.1.108:8000/api/persona/1";
   final Dio _dio = Dio();
 
   Future<PersonaModel> getUser() async {
