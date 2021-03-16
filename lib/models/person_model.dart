@@ -2,7 +2,7 @@ class PersonaModel {
   int idPersona;
   String nombre;
   String apellido;
-  String nacimiento;
+  DateTime nacimiento;
   String email;
   String direccion;
   String telefono;
