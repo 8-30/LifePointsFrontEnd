@@ -15,7 +15,10 @@ class CardPresentation extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => DetalleServicioUI()),
+        MaterialPageRoute(
+            builder: (context) => DetalleServicioUI(
+                  idPersona: persona.idPersona,
+                )),
       ),
       child: Card(
         color: Colors.black54,
