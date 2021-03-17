@@ -20,9 +20,25 @@ class InsumoApiProvider {
     }
   }
 
+  Future<List<InsumoModel>> getInsumoEmpleado(id) async {
+    List<InsumoModel> insumoList = List<InsumoModel>();
+    try {
+      Response response =
+          await _dio.get(_endpoint + "empleado/" + id.toString());
+      print(response.data["insumos"]);
+      for (var data in response.data["insumos"]) {
+        insumoList.add(InsumoModel.fromJson(data));
+      }
+      return insumoList;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return null;
+    }
+  }
+
   Future<InsumoModel> getInsumoid(id) async {
     try {
-      Response response = await _dio.get(_endpoint + id);
+      Response response = await _dio.get(_endpoint + id.toString());
       print(response);
       return InsumoModel.fromJson(response.data);
     } catch (error, stacktrace) {

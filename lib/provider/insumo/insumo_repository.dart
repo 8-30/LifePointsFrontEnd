@@ -8,6 +8,10 @@ class InsumoRepository {
     return _apiProvider.getAllInsumos();
   }
 
+  Future<List<InsumoModel>> getInsumoEmpleado(id) {
+    return _apiProvider.getInsumoEmpleado(id);
+  }
+
   Future<InsumoModel> getInsumoid(id) {
     return _apiProvider.getInsumoid(id);
   }

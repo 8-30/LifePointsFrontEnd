@@ -30,7 +30,7 @@ class _ServicioBodyState extends State<ServicioBody> {
             builder: (context, AsyncSnapshot<EmpleadoModel> snapshot1) {
               return snapshot1.hasData
                   ? FutureBuilder(
-                      future: _insumoRepository.getAllInsumos(),
+                      future: _insumoRepository.getInsumoEmpleado(idPersona),
                       builder: (context,
                           AsyncSnapshot<List<InsumoModel>> snapshot2) {
                         return snapshot2.hasData
