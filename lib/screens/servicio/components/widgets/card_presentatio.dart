@@ -18,61 +18,101 @@ class CardPresentation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Image(
-                      image: NetworkImage(persona.foto),
-                      height: 80,
-                      width: 80,
-                    ),
-                    Text("  "),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(persona.nombre + " " + persona.apellido),
-                        Text(persona.genero),
-                        Text("Edad: 24"),
-                        Text("Telefono: "),
-                        Text(persona.telefono),
-                      ],
-                    ),
-                  ],
-                ),
-                Text("Direccion: "),
-                Text(persona.direccion),
-                Text("Email: "),
-                Text(persona.email),
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Text(empleado.descripcion),
-                      Text("\nExtras: "),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Image(
+                        image: NetworkImage(persona.foto),
+                        height: 80,
+                        width: 80,
+                      ),
+                      Text("  "),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(persona.nombre + " " + persona.apellido),
+                          Text(persona.genero),
+                          Text("Edad: 24"),
+                          Text("Telefono: "),
+                          Text(persona.telefono),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: new List.generate(insumos.length,
-                          (index) => new Text(insumos[index].nombre + ": ")),
-                    ),
-                    Column(
-                      children: new List.generate(
-                          insumos.length,
-                          (index) =>
-                              new Text(insumos[index].tarifa.toString())),
-                    )
-                  ],
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Direccion: "),
+                      RichText(
+                          text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: [TextSpan(text: persona.direccion)])),
+                      Text("Email: "),
+                      Text(persona.email),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("\nServicio: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Descripcion: "),
+                      RichText(
+                          text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: [
+                            TextSpan(text: empleado.descripcion)
+                          ])),
+                      Text("Tarifa por Hora: "),
+                      Text(empleado.tarifa.toString() + "\$"),
+                      Text("Empresa: " + empleado.empresa),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("\nInsumos Extras: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: new List.generate(insumos.length,
+                            (index) => new Text(insumos[index].nombre + ": ")),
+                      ),
+                      Column(
+                        children: new List.generate(
+                            insumos.length,
+                            (index) => new Text(
+                                insumos[index].tarifa.toString() + "\$")),
+                      )
+                    ],
+                  ),
                 ),
                 Text(""),
                 RaisedButton(
