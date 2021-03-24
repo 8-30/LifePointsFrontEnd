@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:life_point/screens/ui.dart';
+import 'controllers/controllers.dart';
 
 void main() {
+  Get.put<AuthController>(AuthController());
   runApp(MyApp());
 }
 
@@ -10,10 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      initialRoute: 'home',
+      title: 'Life Points',
+      initialRoute: 'login',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),

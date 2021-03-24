@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:life_point/screens/widgets/TextFormFieldWithIcon.dart';
+import 'package:get/instance_manager.dart';
+import 'package:life_point/controllers/controllers.dart' show AuthController;
 
 class BodyRegister extends StatefulWidget {
-  const BodyRegister({Key key}) : super(key: key);
-
   @override
   _BodyRegisterState createState() => _BodyRegisterState();
 }
 
 class _BodyRegisterState extends State<BodyRegister> {
+  final AuthController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    /*  String nombre;+
-        String apellido;+
-        DateTime nacimiento;
-        String email;+
-        String direccion;+
-        String telefono;+
-        String genero;-
-        String foto;-
-        String credencial;+ */
     int _value = 1;
     return Container(
       child: SingleChildScrollView(
@@ -27,26 +19,32 @@ class _BodyRegisterState extends State<BodyRegister> {
         child: Column(
           children: [
             FormInputFieldWithIcon(
+              controller: _controller.nameController,
               iconPrefix: Icons.account_circle,
               labelText: "Nombre",
             ),
             FormInputFieldWithIcon(
+              controller: _controller.lastnameController,
               iconPrefix: Icons.account_circle_sharp,
               labelText: "Apellido",
             ),
             FormInputFieldWithIcon(
+              controller: _controller.emailController,
               iconPrefix: Icons.mail_outline_sharp,
               labelText: "Correo Electronico",
             ),
             FormInputFieldWithIcon(
+              controller: _controller.directionController,
               iconPrefix: Icons.map_sharp,
               labelText: "Direccion",
             ),
             FormInputFieldWithIcon(
+              controller: _controller.phoneNumberController,
               iconPrefix: Icons.phone,
               labelText: "Numero Telefonico",
             ),
             FormInputFieldWithIcon(
+              controller: _controller.ciController,
               iconPrefix: Icons.card_travel,
               labelText: "Numero de indentificación",
             ),

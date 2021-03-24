@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:life_point/models/empleado_model.dart';
-import 'package:life_point/provider/administrado_bloc.dart';
 import 'package:life_point/provider/empleado/empleado_repository.dart';
 import 'package:life_point/screens/home/components/widgets/card_presentatio.dart';
 
@@ -12,13 +11,7 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  AdministradorBloc administradorBloc = AdministradorBloc();
   EmpleadoRepository _empleadoRepository = EmpleadoRepository();
-  @override
-  void initState() {
-    super.initState();
-    administradorBloc.getUser();
-  }
 
   @override
   Widget build(BuildContext context) {
