@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/models/insumo_model.dart';
 import 'package:life_point/models/person_model.dart';
+import 'package:life_point/screens/chat/inbox/chat_ui.dart';
 import 'package:life_point/screens/solicitar_servicio/solicitar_servicio_ui.dart';
 
 class CardPresentation extends StatelessWidget {
@@ -125,8 +126,7 @@ class CardPresentation extends StatelessWidget {
                   elevation: 5.0,
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => SolicitarServicioUI()),
+                    MaterialPageRoute(builder: (context) => ChatUI()),
                   ),
                 )
               ],

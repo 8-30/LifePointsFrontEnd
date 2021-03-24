@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:life_point/models/insumo_model.dart';
 
 class InsumoApiProvider {
-  final String _endpoint = "http://192.168.100.2:8000/api/insumo/";
+  final String _endpoint = "http://lifepoints.herokuapp.com/api/insumo/";
   final Dio _dio = Dio();
 
   Future<List<InsumoModel>> getAllInsumos() async {
