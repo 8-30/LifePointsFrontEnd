@@ -1,32 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_point/models/empleado_model.dart';
-import 'package:life_point/models/insumo_model.dart';
+import 'package:life_point/models/inbox_model.dart';
+import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/mensaje/mensaje_repository.dart';
 
 class ChatCard extends StatefulWidget {
-  final PersonaModel persona;
-  final EmpleadoModel empleado;
-  final List<InsumoModel> insumos;
+  final int persona;
+  final int cliente;
+  final int idInbox;
+  final List<MensajeModel> mensajes;
   ChatCard({
     Key key,
     this.persona,
-    this.empleado,
-    this.insumos,
+    this.cliente,
+    this.idInbox,
+    this.mensajes,
   }) : super(key: key);
   @override
-  State createState() => new ChatWindow();
+  State createState() =>
+      new ChatWindow(this.mensajes, this.idInbox, this.cliente);
 }
 
 class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   MensajeRepository _mensajeRepository = MensajeRepository();
-  final List<Msg> _messages = <Msg>[];
+  List<MensajeModel> mensajes;
+  int idInbox, cliente;
+  List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
+  ChatWindow(this.mensajes, this.idInbox, this.cliente);
 
   @override
   Widget build(BuildContext ctx) {
+    _cargarMsg(idInbox);
     return new Scaffold(
       body: new Column(children: <Widget>[
         new Flexible(
@@ -94,6 +101,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       _isWriting = false;
     });
     Msg msg = new Msg(
+      emisor: "Usuario",
       txt: txt,
       animationController: new AnimationController(
           vsync: this, duration: new Duration(milliseconds: 800)),
@@ -102,7 +110,25 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       _messages.insert(0, msg);
     });
     msg.animationController.forward();
-    _mensajeRepository.postMensaje(txt, 1);
+    _mensajeRepository.postMensaje(txt, idInbox, cliente);
+  }
+
+  _cargarMsg(int id) {
+    if (_messages.length == 0) {
+      mensajes.forEach((element) {
+        print(element.texto);
+        Msg msg = new Msg(
+          emisor: "Usuario",
+          txt: element.texto,
+          animationController: new AnimationController(
+              vsync: this, duration: new Duration(milliseconds: 800)),
+        );
+        setState(() {
+          _messages.insert(0, msg);
+        });
+        msg.animationController.forward();
+      });
+    }
   }
 
   @override
@@ -115,9 +141,10 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
 }
 
 class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController});
+  Msg({this.txt, this.animationController, this.emisor});
   final String txt;
   final AnimationController animationController;
+  final String emisor;
 
   @override
   Widget build(BuildContext ctx) {
@@ -132,14 +159,13 @@ class Msg extends StatelessWidget {
           children: <Widget>[
             new Container(
               margin: const EdgeInsets.only(right: 18.0),
-              child: new CircleAvatar(child: new Text("Da"[0])),
+              child: new CircleAvatar(child: new Text(emisor[0])),
             ),
             new Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text("Dabiel" + " " + "Lopez",
-                      style: Theme.of(ctx).textTheme.subhead),
+                  new Text(emisor, style: Theme.of(ctx).textTheme.subhead),
                   new Container(
                     margin: const EdgeInsets.only(top: 6.0),
                     child: new Text(txt),

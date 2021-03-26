@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/models/insumo_model.dart';
 import 'package:life_point/models/person_model.dart';
+import 'package:life_point/provider/Inbox/inbox_repository.dart';
 import 'package:life_point/screens/chat/inbox/chat_ui.dart';
 import 'package:life_point/screens/solicitar_servicio/solicitar_servicio_ui.dart';
 
@@ -10,6 +11,7 @@ class CardPresentation extends StatelessWidget {
   final PersonaModel persona;
   final EmpleadoModel empleado;
   final List<InsumoModel> insumos;
+  InboxRepository _inboxRepository = InboxRepository();
   CardPresentation({
     Key key,
     this.persona,
@@ -117,20 +119,25 @@ class CardPresentation extends StatelessWidget {
                 ),
                 Text(""),
                 RaisedButton(
-                  child: Text("Solicitar Servicio"),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textColor: Colors.white,
-                  color: Colors.green[400],
-                  elevation: 5.0,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ChatUI(idPersona: persona.idPersona)),
-                  ),
-                )
+                    child: Text("Solicitar Servicio"),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    textColor: Colors.white,
+                    color: Colors.green[400],
+                    elevation: 5.0,
+                    onPressed: () async => {
+                          //esto va en otro boton, por mientras esta aqui
+                          print("sss"),
+                          await _inboxRepository.postInbox(
+                              persona.idPersona, 1),
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatUI(idPersona: persona.idPersona)),
+                          ),
+                        })
               ],
             )));
   }

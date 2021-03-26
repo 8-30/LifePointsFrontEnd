@@ -5,19 +5,19 @@ import 'package:life_point/provider/mensaje/mensaje_provider.dart';
 class MensajeRepository {
   MensajeApiProvider _apiProvider = MensajeApiProvider();
 
-  Future<List<MensajeModel>> getAllMensajes() {
-    return _apiProvider.getAllMensajes();
+  Future<List<MensajeModel>> getAllMensaje() {
+    return _apiProvider.getAllMensaje();
   }
 
-  Future<List<MensajeModel>> getMensajeEmpleado(id) {
-    return _apiProvider.getMensajeEmpleado(id);
+  Future<List<MensajeModel>> getAllMensajeInbox(id) {
+    return _apiProvider.getAllMensajeInbox(id);
   }
 
   Future<MensajeModel> getMensajeid(id) {
     return _apiProvider.getMensajeid(id);
   }
 
-  Future<MensajeModel> postMensaje(model, id) {
-    return _apiProvider.postMensaje(model, id);
+  Future<MensajeModel> postMensaje(model, id, idEmisor) {
+    return _apiProvider.postMensaje(model, id, idEmisor);
   }
 }

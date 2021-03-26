@@ -5,7 +5,7 @@ class MensajeApiProvider {
   final String _endpoint = "http://lifepoints.herokuapp.com/api/mensaje/";
   final Dio _dio = Dio();
 
-  Future<List<MensajeModel>> getAllMensajes() async {
+  Future<List<MensajeModel>> getAllMensaje() async {
     List<MensajeModel> mensajeList = List<MensajeModel>();
     try {
       Response response = await _dio.get(_endpoint);
@@ -20,13 +20,12 @@ class MensajeApiProvider {
     }
   }
 
-  Future<List<MensajeModel>> getMensajeEmpleado(id) async {
+  Future<List<MensajeModel>> getAllMensajeInbox(id) async {
     List<MensajeModel> mensajeList = List<MensajeModel>();
     try {
-      Response response =
-          await _dio.get(_endpoint + "empleado/" + id.toString());
-      print(response.data["mensajes"]);
-      for (var data in response.data["mensajes"]) {
+      Response response = await _dio.get(_endpoint + "inbox/" + id.toString());
+      print(response.data["mensaje"]);
+      for (var data in response.data["mensaje"]) {
         mensajeList.add(MensajeModel.fromJson(data));
       }
       return mensajeList;
@@ -47,10 +46,14 @@ class MensajeApiProvider {
     }
   }
 
-  Future<MensajeModel> postMensaje(String texto, int id) async {
+  Future<MensajeModel> postMensaje(String texto, int id, int idEmisor) async {
     try {
-      MensajeModel mensaje =
-          new MensajeModel(idMensaje: null, idInbox: id, texto: texto);
+      MensajeModel mensaje = new MensajeModel(
+          idMensaje: null,
+          idInbox: id,
+          texto: texto,
+          idEmisor: idEmisor,
+          estado: false);
       print("no");
       print(mensaje.toJson());
       Response response = await _dio.post(_endpoint, data: mensaje.toJson());

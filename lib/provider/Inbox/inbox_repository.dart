@@ -8,8 +8,16 @@ class InboxRepository {
     return _apiProvider.getAllInboxs();
   }
 
-  Future<List<InboxModel>> getInboxEmpleado(id) {
-    return _apiProvider.getInboxEmpleado(id);
+  Future<List<InboxModel>> getInboxPersona(id) {
+    return _apiProvider.getInboxPersona(id);
+  }
+
+  Future<InboxModel> getInboxParticipantes(id1, id2) {
+    return _apiProvider.getInboxParticipantes(id1, id2);
+  }
+
+  Future<InboxModel> postInbox(idpersona1, idpersona2) {
+    return _apiProvider.postInbox(idpersona1, idpersona2);
   }
 
   Future<InboxModel> getInboxid(id) {
