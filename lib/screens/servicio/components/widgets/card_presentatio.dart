@@ -126,7 +126,9 @@ class CardPresentation extends StatelessWidget {
                   elevation: 5.0,
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatUI()),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ChatUI(idPersona: persona.idPersona)),
                   ),
                 )
               ],
