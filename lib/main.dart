@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:life_point/screens/ui.dart';
 import 'controllers/controllers.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   Get.put<AuthController>(AuthController());
   runApp(MyApp());
 }

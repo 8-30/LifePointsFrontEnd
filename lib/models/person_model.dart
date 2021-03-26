@@ -9,7 +9,8 @@ class PersonaModel {
   String genero;
   String foto;
   String credencial;
-
+  String contrasenia;
+  String usuario;
 //  Persona persona;
   PersonaModel({
     this.idPersona,
@@ -22,6 +23,8 @@ class PersonaModel {
     this.genero,
     this.foto,
     this.credencial,
+    this.contrasenia,
+    this.usuario,
   });
 
   static PersonaModel fromJson(Map<String, dynamic> json) {
@@ -36,6 +39,8 @@ class PersonaModel {
       genero: json['genero'],
       foto: json['foto'],
       credencial: json['credencial'],
+      contrasenia: json['contrasenia'],
+      usuario: json['usuario'],
     );
   }
 
@@ -43,12 +48,14 @@ class PersonaModel {
         "idPersona": idPersona,
         "nombre": nombre,
         "apellido": apellido,
-        "nacimiento": nacimiento,
+        "nacimiento": DateTime.now(),
         "email": email,
         "direccion": direccion,
         "telefono": telefono,
         "genero": genero,
         "foto": foto,
-        "credencial": credencial
+        "credencial": credencial,
+        "contrasenia": contrasenia,
+        "usuario": nombre + apellido,
       };
 }
