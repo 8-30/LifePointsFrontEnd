@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:life_point/models/person_model.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/screens/home/home_ui.dart';
 import '../../provider/usuario/usuario_repository.dart';
@@ -9,13 +8,10 @@ import '../../provider/usuario/usuario_repository.dart';
 class AuthController extends GetxController {
   final usuarioIDStorage = GetStorage();
   UsuarioRepository _usuarioApiProvider = UsuarioRepository();
-  String email = "jipsonmurillo@gmail.com";
-  String password = "Jipson11.";
 
-  int id = 0;
-  bool authEnable = false;
   UsuarioModel _usuarioModel = UsuarioModel();
   UsuarioModel _userCreatedModel = UsuarioModel();
+
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -38,22 +34,6 @@ class AuthController extends GetxController {
   }
 
   void loginButtom() async {
-    // print("email: " + emailController.text);
-
-    // if ((emailController.text == email) &&
-    //     (passwordController.text == password)) {
-    //   authEnable = true;
-    //   print("User Auth");
-    //   Get.to(() => HomeUI());
-    // } else {
-    //   Get.snackbar(
-    //     "ERROR",
-    //     "Error de auntenticacion",
-    //     icon: Icon(Icons.close),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //   );
-    // }
-    // PersonaModel personaModel = PersonaModel();
     try {
       final personaModel = await _usuarioApiProvider.authUsuario(
           usernameController.text.trim(), passwordController.text.trim());
