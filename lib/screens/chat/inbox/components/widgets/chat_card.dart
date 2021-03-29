@@ -175,7 +175,7 @@ class Msg extends StatelessWidget {
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (enviado)
+            if (!enviado)
               new Container(
                 margin: const EdgeInsets.only(right: 18.0),
                 child: new CircleAvatar(
@@ -183,7 +183,7 @@ class Msg extends StatelessWidget {
                   backgroundColor: color,
                 ),
               ),
-            if (enviado)
+            if (!enviado)
               new Expanded(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +197,7 @@ class Msg extends StatelessWidget {
                   ],
                 ),
               ),
-            if (!enviado)
+            if (enviado)
               new Expanded(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -211,7 +211,7 @@ class Msg extends StatelessWidget {
                   ],
                 ),
               ),
-            if (!enviado)
+            if (enviado)
               new Container(
                 margin: const EdgeInsets.only(left: 18.0),
                 child: new CircleAvatar(
