@@ -9,9 +9,6 @@ class SolicitarServicioUI extends StatefulWidget {
 }
 
 class _SolicitarServicioUIState extends State<SolicitarServicioUI> {
-  bool _isChecked = true;
-  String _currText = '';
-
   List<String> text = ["InduceSmile.com", "Flutter.io", "google.com"];
   @override
   Widget build(BuildContext context) {

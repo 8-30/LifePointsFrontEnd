@@ -54,9 +54,8 @@ class MensajeApiProvider {
           texto: texto,
           idEmisor: idEmisor,
           estado: false);
-      print("no");
       print(mensaje.toJson());
-      Response response = await _dio.post(_endpoint, data: mensaje.toJson());
+      await _dio.post(_endpoint, data: mensaje.toJson());
       return null;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

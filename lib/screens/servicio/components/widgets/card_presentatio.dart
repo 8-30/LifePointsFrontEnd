@@ -4,20 +4,27 @@ import 'package:life_point/models/insumo_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/Inbox/inbox_repository.dart';
 import 'package:life_point/screens/chat/inbox/chat_ui.dart';
-import 'package:life_point/screens/solicitar_servicio/solicitar_servicio_ui.dart';
 
-class CardPresentation extends StatelessWidget {
-  final TextStyle estiloTexto = new TextStyle(color: Colors.white);
+class CardPresentation extends StatefulWidget {
   final PersonaModel persona;
   final EmpleadoModel empleado;
   final List<InsumoModel> insumos;
-  InboxRepository _inboxRepository = InboxRepository();
+
   CardPresentation({
     Key key,
     this.persona,
     this.empleado,
     this.insumos,
   }) : super(key: key);
+
+  @override
+  _CardPresentationState createState() => _CardPresentationState();
+}
+
+class _CardPresentationState extends State<CardPresentation> {
+  final TextStyle estiloTexto = new TextStyle(color: Colors.white);
+
+  InboxRepository _inboxRepository = InboxRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,7 @@ class CardPresentation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Image(
-                        image: NetworkImage(persona.foto),
+                        image: NetworkImage(widget.persona.foto),
                         height: 80,
                         width: 80,
                       ),
@@ -41,11 +48,13 @@ class CardPresentation extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(persona.nombre + " " + persona.apellido),
-                          Text(persona.genero),
+                          Text(widget.persona.nombre +
+                              " " +
+                              widget.persona.apellido),
+                          Text(widget.persona.genero),
                           Text("Edad: 24"),
                           Text("Telefono: "),
-                          Text(persona.telefono),
+                          Text(widget.persona.telefono),
                         ],
                       ),
                     ],
@@ -59,9 +68,11 @@ class CardPresentation extends StatelessWidget {
                       RichText(
                           text: TextSpan(
                               style: DefaultTextStyle.of(context).style,
-                              children: [TextSpan(text: persona.direccion)])),
+                              children: [
+                            TextSpan(text: widget.persona.direccion)
+                          ])),
                       Text("Email: "),
-                      Text(persona.email),
+                      Text(widget.persona.email),
                     ],
                   ),
                 ),
@@ -83,11 +94,11 @@ class CardPresentation extends StatelessWidget {
                           text: TextSpan(
                               style: DefaultTextStyle.of(context).style,
                               children: [
-                            TextSpan(text: empleado.descripcion)
+                            TextSpan(text: widget.empleado.descripcion)
                           ])),
                       Text("Tarifa por Hora: "),
-                      Text(empleado.tarifa.toString() + "\$"),
-                      Text("Empresa: " + empleado.empresa),
+                      Text(widget.empleado.tarifa.toString() + "\$"),
+                      Text("Empresa: " + widget.empleado.empresa),
                     ],
                   ),
                 ),
@@ -105,14 +116,17 @@ class CardPresentation extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
-                        children: new List.generate(insumos.length,
-                            (index) => new Text(insumos[index].nombre + ": ")),
+                        children: new List.generate(
+                            widget.insumos.length,
+                            (index) =>
+                                new Text(widget.insumos[index].nombre + ": ")),
                       ),
                       Column(
                         children: new List.generate(
-                            insumos.length,
+                            widget.insumos.length,
                             (index) => new Text(
-                                insumos[index].tarifa.toString() + "\$")),
+                                widget.insumos[index].tarifa.toString() +
+                                    "\$")),
                       )
                     ],
                   ),
@@ -127,15 +141,15 @@ class CardPresentation extends StatelessWidget {
                     color: Colors.green[400],
                     elevation: 5.0,
                     onPressed: () async => {
-                          //esto va en otro boton, por mientras esta aqui
-                          print("sss"),
+                          //esto va en otro boton, por mientras esta aqui, el 47 es el id del usuario
+
                           await _inboxRepository.postInbox(
-                              persona.idPersona, 1),
+                              widget.persona.idPersona, 47),
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ChatUI(idPersona: persona.idPersona)),
+                                    ChatUI(persona: widget.persona)),
                           ),
                         })
               ],

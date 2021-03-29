@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:life_point/models/inbox_model.dart';
 import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/mensaje/mensaje_repository.dart';
 
 class ChatCard extends StatefulWidget {
-  final int persona;
+  final PersonaModel persona;
   final int cliente;
   final int idInbox;
   final List<MensajeModel> mensajes;
@@ -19,17 +18,19 @@ class ChatCard extends StatefulWidget {
   }) : super(key: key);
   @override
   State createState() =>
-      new ChatWindow(this.mensajes, this.idInbox, this.cliente);
+      new ChatWindow(this.mensajes, this.idInbox, this.cliente, this.persona);
 }
 
 class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   MensajeRepository _mensajeRepository = MensajeRepository();
   List<MensajeModel> mensajes;
+  PersonaModel persona;
   int idInbox, cliente;
+
   List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
-  ChatWindow(this.mensajes, this.idInbox, this.cliente);
+  ChatWindow(this.mensajes, this.idInbox, this.cliente, this.persona);
 
   @override
   Widget build(BuildContext ctx) {
@@ -102,6 +103,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     });
     Msg msg = new Msg(
       emisor: "Usuario",
+      enviado: true,
       txt: txt,
       animationController: new AnimationController(
           vsync: this, duration: new Duration(milliseconds: 800)),
@@ -114,11 +116,22 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   }
 
   _cargarMsg(int id) {
+    String emisor = "Usuario";
+    bool enviado = true;
     if (_messages.length == 0) {
       mensajes.forEach((element) {
+        if (element.idEmisor == persona.idPersona) {
+          emisor = persona.nombre;
+          enviado = false;
+        } else {
+          emisor = "Usuario";
+          enviado = true;
+        }
+        print(emisor);
         print(element.texto);
         Msg msg = new Msg(
-          emisor: "Usuario",
+          enviado: enviado,
+          emisor: emisor,
           txt: element.texto,
           animationController: new AnimationController(
               vsync: this, duration: new Duration(milliseconds: 800)),
@@ -141,13 +154,18 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
 }
 
 class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController, this.emisor});
+  Msg({this.txt, this.animationController, this.emisor, this.enviado});
   final String txt;
   final AnimationController animationController;
   final String emisor;
+  final bool enviado;
 
   @override
   Widget build(BuildContext ctx) {
+    var color = Colors.red;
+    if (enviado) {
+      color = Colors.green;
+    }
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(
           parent: animationController, curve: Curves.easeOut),
@@ -157,22 +175,50 @@ class Msg extends StatelessWidget {
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(right: 18.0),
-              child: new CircleAvatar(child: new Text(emisor[0])),
-            ),
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(emisor, style: Theme.of(ctx).textTheme.subhead),
-                  new Container(
-                    margin: const EdgeInsets.only(top: 6.0),
-                    child: new Text(txt),
-                  ),
-                ],
+            if (enviado)
+              new Container(
+                margin: const EdgeInsets.only(right: 18.0),
+                child: new CircleAvatar(
+                  child: new Text(emisor[0]),
+                  backgroundColor: color,
+                ),
               ),
-            ),
+            if (enviado)
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // ignore: deprecated_member_use
+                    new Text(emisor, style: Theme.of(ctx).textTheme.subhead),
+                    new Container(
+                      margin: const EdgeInsets.only(top: 6.0),
+                      child: new Text(txt),
+                    ),
+                  ],
+                ),
+              ),
+            if (!enviado)
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    // ignore: deprecated_member_use
+                    new Text(emisor, style: Theme.of(ctx).textTheme.subhead),
+                    new Container(
+                      margin: const EdgeInsets.only(top: 6.0),
+                      child: new Text(txt),
+                    ),
+                  ],
+                ),
+              ),
+            if (!enviado)
+              new Container(
+                margin: const EdgeInsets.only(left: 18.0),
+                child: new CircleAvatar(
+                  child: new Text(emisor[0]),
+                  backgroundColor: color,
+                ),
+              ),
           ],
         ),
       ),

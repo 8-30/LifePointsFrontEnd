@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:life_point/models/person_model.dart';
 import 'package:life_point/screens/chat/inbox/components/body.dart';
 
 class ChatUI extends StatelessWidget {
-  final int idPersona;
-  const ChatUI({Key key, this.idPersona}) : super(key: key);
+  final PersonaModel persona;
+  const ChatUI({Key key, this.persona}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ChatUI extends StatelessWidget {
       appBar: AppBar(
         title: Text("Inbox"),
       ),
-      body: ChatBody(idPersona: idPersona),
+      body: ChatBody(persona: persona),
     );
   }
 }

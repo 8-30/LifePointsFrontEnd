@@ -26,7 +26,7 @@ class _HomeBodyState extends State<HomeBody> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return CardPresentation(
-                          persona: snapshot.data[index].persona,
+                          empleado: snapshot.data[index],
                         );
                       },
                     )

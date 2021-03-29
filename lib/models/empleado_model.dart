@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:life_point/models/person_model.dart';
 
 class EmpleadoModel {

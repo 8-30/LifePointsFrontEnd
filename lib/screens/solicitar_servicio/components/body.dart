@@ -9,7 +9,6 @@ class BodySolicitarServicio extends StatefulWidget {
 
 class _BodySolicitarServicioState extends State<BodySolicitarServicio> {
   bool _isChecked = true;
-  String _currText = '';
 
   List<String> text = ["InduceSmile.com", "Flutter.io", "google.com"];
   @override
@@ -62,9 +61,7 @@ class _BodySolicitarServicioState extends State<BodySolicitarServicio> {
                             onChanged: (val) {
                               setState(() {
                                 _isChecked = val;
-                                if (val == true) {
-                                  _currText = t;
-                                }
+                                if (val == true) {}
                               });
                             },
                           ))

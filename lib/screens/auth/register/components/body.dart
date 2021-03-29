@@ -29,6 +29,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) => _controller.nameController.text = value,
               ),
@@ -40,6 +41,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) => _controller.lastnameController.text = value,
               ),
@@ -53,6 +55,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
               ),
               FormInputFieldWithIcon(
@@ -63,6 +66,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) => _controller.emailController.text = value,
               ),
@@ -74,6 +78,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) =>
                     _controller.directionController.text = value,
@@ -87,6 +92,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) =>
                     _controller.phoneNumberController.text = value,
@@ -100,6 +106,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) => _controller.ciController.text = value,
               ),
@@ -136,6 +143,7 @@ class _BodyRegisterState extends State<BodyRegister> {
                   if (value.isEmpty) {
                     return 'El campo no puede ser vacio.';
                   }
+                  return null;
                 },
                 onSaved: (value) => _controller.passwordController.text = value,
               ),

@@ -1,8 +1,8 @@
 class OrdenModel {
   int idOrden;
   int idOrdenEmpleado;
-  DateTime fecha_orden;
-  DateTime fecha_agenda;
+  DateTime fechaOrden;
+  DateTime fechaAgenda;
   String pago;
   String estado;
   String tiempo;
@@ -13,8 +13,8 @@ class OrdenModel {
   OrdenModel({
     this.idOrden,
     this.idOrdenEmpleado,
-    this.fecha_orden,
-    this.fecha_agenda,
+    this.fechaOrden,
+    this.fechaAgenda,
     this.pago,
     this.estado,
     this.tiempo,
@@ -26,8 +26,8 @@ class OrdenModel {
     return OrdenModel(
       idOrden: json['idOrden'],
       idOrdenEmpleado: json['idOrdenEmpleado'],
-      fecha_orden: json['fecha_orden'],
-      fecha_agenda: json['fecha_agenda'],
+      fechaOrden: json['fecha_orden'],
+      fechaAgenda: json['fecha_agenda'],
       pago: json['pago'],
       estado: json['estado'],
       tiempo: json['tiempo'],
@@ -39,8 +39,8 @@ class OrdenModel {
   Map<String, dynamic> toJson() => {
         "idOrden": idOrden,
         "idOrdenEmpleado": idOrdenEmpleado,
-        "fecha_orden": fecha_orden,
-        "fecha_agenda": fecha_agenda,
+        "fecha_orden": fechaOrden,
+        "fecha_agenda": fechaAgenda,
         "pago": pago,
         "estado": estado,
         "tiempo": tiempo,

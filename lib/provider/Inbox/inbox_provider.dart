@@ -68,10 +68,10 @@ class InboxApiProvider {
         nombre: "inbox",
       );
       print(inbox.toJson());
-      Response response = await _dio.post(_endpoint, data: inbox.toJson());
+      await _dio.post(_endpoint, data: inbox.toJson());
       return null;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
+    } catch (error) {
+      print("Exception occured: $error");
       return null;
     }
   }

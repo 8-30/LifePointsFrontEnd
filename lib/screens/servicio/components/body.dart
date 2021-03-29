@@ -7,16 +7,16 @@ import 'package:life_point/provider/insumo/insumo_repository.dart';
 import 'package:life_point/screens/servicio/components/widgets/card_presentatio.dart';
 
 class ServicioBody extends StatefulWidget {
-  final int idPersona;
-  ServicioBody({Key key, this.idPersona}) : super(key: key);
+  final PersonaModel persona;
+  ServicioBody({Key key, this.persona}) : super(key: key);
 
   @override
-  _ServicioBodyState createState() => _ServicioBodyState(idPersona);
+  _ServicioBodyState createState() => _ServicioBodyState(persona);
 }
 
 class _ServicioBodyState extends State<ServicioBody> {
-  final int idPersona;
-  _ServicioBodyState(this.idPersona);
+  final PersonaModel persona;
+  _ServicioBodyState(this.persona);
   InsumoRepository _insumoRepository = InsumoRepository();
   EmpleadoRepository _empleadoRepository = EmpleadoRepository();
 
@@ -26,11 +26,12 @@ class _ServicioBodyState extends State<ServicioBody> {
       child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
           child: FutureBuilder(
-            future: _empleadoRepository.getEmpleado(idPersona),
+            future: _empleadoRepository.getEmpleado(persona.idPersona),
             builder: (context, AsyncSnapshot<EmpleadoModel> snapshot1) {
               return snapshot1.hasData
                   ? FutureBuilder(
-                      future: _insumoRepository.getInsumoEmpleado(idPersona),
+                      future: _insumoRepository
+                          .getInsumoEmpleado(persona.idPersona),
                       builder: (context,
                           AsyncSnapshot<List<InsumoModel>> snapshot2) {
                         return snapshot2.hasData

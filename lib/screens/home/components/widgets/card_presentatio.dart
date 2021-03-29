@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:life_point/models/person_model.dart';
+import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/screens/servicio/detalle_servicio_ui.dart';
 
 class CardPresentation extends StatelessWidget {
   final TextStyle estiloTexto = new TextStyle(color: Colors.white);
-  final PersonaModel persona;
+
+  final EmpleadoModel empleado;
   CardPresentation({
     Key key,
-    this.persona,
+    this.empleado,
   }) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class CardPresentation extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => DetalleServicioUI(
-                  idPersona: persona.idPersona,
+                  persona: empleado.persona,
                 )),
       ),
       child: Card(
@@ -25,11 +26,16 @@ class CardPresentation extends StatelessWidget {
         elevation: 8.0,
         child: ListTile(
           leading: Image(
-            image: NetworkImage(persona.foto),
+            image: NetworkImage(empleado.persona.foto),
           ),
-          title:
-              Text(persona.nombre + " " + persona.apellido, style: estiloTexto),
-          subtitle: Text(persona.direccion + "\n" + "Tarifa: 0.50",
+          title: Text(empleado.persona.nombre + " " + empleado.persona.apellido,
+              style: estiloTexto),
+          subtitle: Text(
+              empleado.persona.direccion +
+                  "\n" +
+                  "Tarifa: " +
+                  empleado.tarifa.toString() +
+                  "\$",
               style: estiloTexto),
           trailing: Icon(Icons.arrow_forward_ios),
         ),

@@ -27,6 +27,7 @@ class BodyLogin extends StatelessWidget {
                 if (value.isEmpty) {
                   return 'El campo no puede ser vacio.';
                 }
+                return null;
               },
             ),
             FormInputFieldWithIcon(
@@ -40,6 +41,7 @@ class BodyLogin extends StatelessWidget {
                 if (value.isEmpty) {
                   return 'El campo no puede ser vacio.';
                 }
+                return null;
               },
             ),
             SizedBox(
