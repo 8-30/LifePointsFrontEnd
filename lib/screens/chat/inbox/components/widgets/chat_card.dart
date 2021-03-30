@@ -10,17 +10,15 @@ class ChatCard extends StatefulWidget {
   final PersonaModel persona;
   final int cliente;
   final int idInbox;
-  final List<MensajeModel> mensajes;
   ChatCard({
     Key key,
     this.persona,
     this.cliente,
     this.idInbox,
-    this.mensajes,
   }) : super(key: key);
   @override
   State createState() =>
-      new ChatWindow(this.mensajes, this.idInbox, this.cliente, this.persona);
+      new ChatWindow(this.idInbox, this.cliente, this.persona);
 }
 
 class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
@@ -33,18 +31,21 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
-  ChatWindow(this.mensajes, this.idInbox, this.cliente, this.persona);
+  ChatWindow(this.idInbox, this.cliente, this.persona);
 
   @override
   void initState() {
+    _buscarMsg(idInbox);
     socketIO = SocketIOManager().createSocketIO(
       //'https://lifepoints.herokuapp.com/',
       'https://prueba-servidor-sock.herokuapp.com/',
       '/',
     );
     socketIO.init();
-    socketIO.subscribe('receive_message', (jsonData) {
-      print("ya tu sabe");
+    socketIO.subscribe('receive_message', (data) {
+      if (data.toString().contains(idInbox.toString() + " }")) {
+        _buscarMsg(idInbox);
+      }
     });
     socketIO.connect();
 
@@ -53,7 +54,6 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext ctx) {
-    _cargarMsg();
     return new Scaffold(
       body: new Column(children: <Widget>[
         new Flexible(
@@ -132,12 +132,21 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     });
     msg.animationController.forward();
     _mensajeRepository.postMensaje(txt, idInbox, cliente);
-    socketIO.sendMessage('send_message', '{msg: msg,id: 1}');
+    print("mande el socket");
+    socketIO.sendMessage(
+        'send_message', '{idInbox: ' + idInbox.toString() + '}');
+  }
+
+  Future<void> _buscarMsg(idInbox) async {
+    this.mensajes = await _mensajeRepository.getAllMensajeInbox(idInbox);
+    await _cargarMsg();
   }
 
   _cargarMsg() {
     String emisor = "Usuario";
     bool enviado = true;
+    //esto se pude mejorar
+    _messages = <Msg>[];
     if (_messages.length == 0) {
       try {
         mensajes.forEach((element) {
@@ -148,8 +157,6 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
             emisor = "Usuario";
             enviado = true;
           }
-          print(emisor);
-          print(element.texto);
           Msg msg = new Msg(
             enviado: enviado,
             emisor: emisor,
@@ -172,6 +179,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       msg.animationController.dispose();
     }
     socketIO.disconnect();
+    socketIO.destroy();
     super.dispose();
   }
 }
