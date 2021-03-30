@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_socket_io/flutter_socket_io.dart';
+import 'package:flutter_socket_io/socket_io_manager.dart';
 import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/mensaje/mensaje_repository.dart';
@@ -22,6 +24,7 @@ class ChatCard extends StatefulWidget {
 }
 
 class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
+  SocketIO socketIO;
   MensajeRepository _mensajeRepository = MensajeRepository();
   List<MensajeModel> mensajes;
   PersonaModel persona;
@@ -33,8 +36,24 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   ChatWindow(this.mensajes, this.idInbox, this.cliente, this.persona);
 
   @override
+  void initState() {
+    socketIO = SocketIOManager().createSocketIO(
+      //'https://lifepoints.herokuapp.com/',
+      'https://prueba-servidor-sock.herokuapp.com/',
+      '/',
+    );
+    socketIO.init();
+    socketIO.subscribe('receive_message', (jsonData) {
+      print("ya tu sabe");
+    });
+    socketIO.connect();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext ctx) {
-    _cargarMsg(idInbox);
+    _cargarMsg();
     return new Scaffold(
       body: new Column(children: <Widget>[
         new Flexible(
@@ -113,34 +132,37 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     });
     msg.animationController.forward();
     _mensajeRepository.postMensaje(txt, idInbox, cliente);
+    socketIO.sendMessage('send_message', '{msg: msg,id: 1}');
   }
 
-  _cargarMsg(int id) {
+  _cargarMsg() {
     String emisor = "Usuario";
     bool enviado = true;
     if (_messages.length == 0) {
-      mensajes.forEach((element) {
-        if (element.idEmisor == persona.idPersona) {
-          emisor = persona.nombre;
-          enviado = false;
-        } else {
-          emisor = "Usuario";
-          enviado = true;
-        }
-        print(emisor);
-        print(element.texto);
-        Msg msg = new Msg(
-          enviado: enviado,
-          emisor: emisor,
-          txt: element.texto,
-          animationController: new AnimationController(
-              vsync: this, duration: new Duration(milliseconds: 800)),
-        );
-        setState(() {
-          _messages.insert(0, msg);
+      try {
+        mensajes.forEach((element) {
+          if (element.idEmisor == persona.idPersona) {
+            emisor = persona.nombre;
+            enviado = false;
+          } else {
+            emisor = "Usuario";
+            enviado = true;
+          }
+          print(emisor);
+          print(element.texto);
+          Msg msg = new Msg(
+            enviado: enviado,
+            emisor: emisor,
+            txt: element.texto,
+            animationController: new AnimationController(
+                vsync: this, duration: new Duration(milliseconds: 800)),
+          );
+          setState(() {
+            _messages.insert(0, msg);
+          });
+          msg.animationController.forward();
         });
-        msg.animationController.forward();
-      });
+      } catch (e) {}
     }
   }
 
@@ -149,6 +171,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     for (Msg msg in _messages) {
       msg.animationController.dispose();
     }
+    socketIO.disconnect();
     super.dispose();
   }
 }

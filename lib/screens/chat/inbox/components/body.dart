@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:life_point/models/inbox_model.dart';
 import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
@@ -17,10 +18,24 @@ class ChatBody extends StatefulWidget {
 
 class _ChatBodyState extends State<ChatBody> {
   final PersonaModel persona;
-  final int idCliente = 47;
+  final usuarioIDStorage = GetStorage();
+  int idCliente;
+  List<MensajeModel> mensajes;
   _ChatBodyState(this.persona);
   MensajeRepository _mensajeRepository = MensajeRepository();
   InboxRepository _inboxRepository = InboxRepository();
+
+  @override
+  void initState() {
+    idCliente = usuarioIDStorage.read("usuarioID");
+    super.initState();
+  }
+
+  Future<void> cargarmensajes() async {
+    final inbox = await _inboxRepository.getInboxParticipantes(
+        persona.idPersona, idCliente);
+    mensajes = await _mensajeRepository.getAllMensajeInbox(inbox.idInbox);
+  }
 
   @override
   Widget build(BuildContext context) {
