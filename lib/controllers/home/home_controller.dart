@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/provider/usuario/usuario_repository.dart';
+import 'package:life_point/screens/profile/profile_ui.dart';
 import 'package:life_point/screens/ui.dart';
 
 class HomeController extends GetxController {
@@ -47,5 +48,9 @@ class HomeController extends GetxController {
 
   void getCurrentUser() async {
     currerUserModel = await usuarioRepository.getCurrentUsuario(currentUserId);
+  }
+
+  void profileUI() {
+    Get.to(() => ProfileUI());
   }
 }

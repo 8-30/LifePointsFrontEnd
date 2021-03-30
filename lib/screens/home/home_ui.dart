@@ -35,6 +35,12 @@ class HomeUI extends StatelessWidget {
           onPressed: () {
             controller.howCurrentUser();
           },
+        ),
+        IconButton(
+          icon: Icon(Icons.account_circle_outlined),
+          onPressed: () {
+            controller.profileUI();
+          },
         )
       ],
     );

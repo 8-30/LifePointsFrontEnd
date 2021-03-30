@@ -43,7 +43,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     );
     socketIO.init();
     socketIO.subscribe('receive_message', (data) {
-      if (data.toString().contains(idInbox.toString() + " }")) {
+      if (data.toString().contains(idInbox.toString() + "}")) {
         _buscarMsg(idInbox);
       }
     });
