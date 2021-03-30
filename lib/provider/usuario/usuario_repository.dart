@@ -12,4 +12,8 @@ class UsuarioRepository {
   Future<PersonaModel> authUsuario(String usuario, String contrasenia) {
     return _apiProvider.authUsuario(usuario, contrasenia);
   }
+
+  Future<UsuarioModel> getCurrentUsuario(int uid) {
+    return _apiProvider.getCurrentUsuario(uid);
+  }
 }

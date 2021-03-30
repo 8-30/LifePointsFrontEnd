@@ -8,10 +8,10 @@ class UsuarioApiProvider {
 
   Future<UsuarioModel> postUsuario(UsuarioModel usuarioModel) async {
     try {
-      print(usuarioModel.toJson());
+      //print(usuarioModel.toJson());
       Response response =
           await _dio.post(_endpoint, data: usuarioModel.toJson());
-      print(response.data);
+      //print(response.data);
       return UsuarioModel.fromJson2(response.data['usuario']);
     } catch (error) {
       print("Exception occured: $error ");
@@ -23,10 +23,21 @@ class UsuarioApiProvider {
     try {
       Response response =
           await _dio.get(_endpoint + "username/$usuario/password/$contrasenia");
-      print(response.data['persona']);
+      //print(response.data['persona']);
       return PersonaModel.fromJson(response.data['persona']);
     } catch (error) {
       print("Exception occured: $error ");
+      return null;
+    }
+  }
+
+  Future<UsuarioModel> getCurrentUsuario(int uid) async {
+    try {
+      Response response = await _dio.get(_endpoint + uid.toString());
+      // print(response.data['usuario']);
+      return UsuarioModel.fromJson(response.data['usuario']);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
       return null;
     }
   }
