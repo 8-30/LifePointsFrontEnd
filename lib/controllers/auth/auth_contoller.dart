@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:life_point/controllers/auth/auth.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/screens/home/home_ui.dart';
 import '../../provider/usuario/usuario_repository.dart';
 
-class AuthController extends GetxController {
+class AuthController extends GetxController with Auth {
   final usuarioIDStorage = GetStorage();
   UsuarioRepository _usuarioApiProvider = UsuarioRepository();
 
   UsuarioModel _usuarioModel = UsuarioModel();
   UsuarioModel _userCreatedModel = UsuarioModel();
 
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController directionController = TextEditingController();
-  TextEditingController ciController = TextEditingController();
-  TextEditingController birthController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController gender = TextEditingController();
-
-  RxString dropDownValue = RxString();
+  RxString dropDownValue = "Masculino".obs;
   RxList<String> addListCategories =
       ["Masculino", "Femenino", "Indefinido"].obs;
 

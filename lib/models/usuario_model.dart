@@ -22,21 +22,22 @@ class UsuarioModel extends PersonaModel {
   });
 
   static UsuarioModel fromJson(Map<String, dynamic> json) {
-    return UsuarioModel(
-      idUsuario: json['idUsuario'],
-      calificacion: json['calificacion'],
-      nombre: json['nombre'],
-      apellido: json['apellido'],
-      nacimiento: null,
-      email: json['email'],
-      direccion: json['direccion'],
-      telefono: json['telefono'],
-      genero: json['genero'],
-      foto: json['foto'],
-      credencial: json['credencial'],
-      contrasenia: json['contrasenia'],
-      usuario: json['usuario'],
-    );
+    UsuarioModel usuarioModel = UsuarioModel();
+    usuarioModel.idUsuario = json['idUsuario'];
+    usuarioModel.idPersona = json['idUsuario'];
+    usuarioModel.calificacion = json['calificacion'].toString();
+    usuarioModel.nombre = json['persona']['nombre'];
+    usuarioModel.apellido = json['persona']['apellido'];
+    usuarioModel.nacimiento = null;
+    usuarioModel.email = json['persona']['email'];
+    usuarioModel.direccion = json['persona']['direccion'];
+    usuarioModel.telefono = json['persona']['telefono'];
+    usuarioModel.genero = json['persona']['genero'];
+    usuarioModel.foto = json['persona']['foto'];
+    usuarioModel.credencial = json['persona']['credencial'];
+    usuarioModel.contrasenia = json['persona']['contrasenia'];
+    usuarioModel.usuario = json['persona']['usuario'];
+    return usuarioModel;
   }
 
   static UsuarioModel fromJson2(Map<String, dynamic> json) {

@@ -30,7 +30,7 @@ class _HomeBodyState extends State<HomeBody> {
                         );
                       },
                     )
-                  : CircularProgressIndicator();
+                  : Center(child: CircularProgressIndicator());
             }),
       ),
     );
