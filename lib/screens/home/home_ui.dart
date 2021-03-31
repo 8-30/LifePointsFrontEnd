@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_point/controllers/controllers.dart';
 import 'package:life_point/screens/home/components/body.dart';
-import 'package:life_point/screens/widgets/bottom_navigation_bar.dart';
+import 'package:life_point/screens/home/components/widgets/bottom_navigation_bar.dart';
 
 class HomeUI extends StatelessWidget {
   const HomeUI({Key key}) : super(key: key);

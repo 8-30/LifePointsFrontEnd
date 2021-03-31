@@ -57,6 +57,13 @@ class HomeController extends GetxController {
     currerUserModel.credencial = model.credencial;
     currerUserModel.direccion = model.direccion;
     final data = await usuarioRepository.putUsuario(currerUserModel);
-    print(data);
+    if (!data) {
+      Get.snackbar("ERROR", "NO SE PUDO ACTUALIZAR EL USUARIO",
+          icon: Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 }

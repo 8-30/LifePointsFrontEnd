@@ -25,7 +25,7 @@ class _BottomNavigationBarTravelState extends State<BottomNavigationBarTravel> {
         break;
       case 2:
         print("go profile");
-        Get.to(() => ProfileUI());
+        Get.to(() => ProfileUI(), transition: Transition.fadeIn);
         _selectedIndex = 0;
         break;
       default:
