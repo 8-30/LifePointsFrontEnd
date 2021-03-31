@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_point/controllers/controllers.dart';
 import 'package:life_point/screens/home/components/body.dart';
+import 'package:life_point/screens/widgets/bottom_navigation_bar.dart';
 
 class HomeUI extends StatelessWidget {
   const HomeUI({Key key}) : super(key: key);
@@ -15,13 +16,7 @@ class HomeUI extends StatelessWidget {
           return Scaffold(
             appBar: buildAppBar(controller),
             body: HomeBody(),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                controller.logOut();
-              },
-              child: Icon(Icons.close),
-              backgroundColor: Colors.green,
-            ),
+            bottomNavigationBar: BottomNavigationBarTravel(),
           );
         });
   }
@@ -37,9 +32,9 @@ class HomeUI extends StatelessWidget {
           },
         ),
         IconButton(
-          icon: Icon(Icons.account_circle_outlined),
+          icon: Icon(Icons.exit_to_app),
           onPressed: () {
-            controller.profileUI();
+            controller.logOut();
           },
         )
       ],

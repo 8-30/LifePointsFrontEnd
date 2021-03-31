@@ -204,7 +204,23 @@ class _BodyProfileState extends State<BodyProfile>
                                         textColor: Colors.white,
                                         color: Colors.green,
                                         onPressed: () {
-                                          print(nameController.text);
+                                          _usuarioModel.nombre =
+                                              nameController.text;
+                                          _usuarioModel.apellido =
+                                              lastnameController.text;
+                                          _usuarioModel.email =
+                                              emailController.text;
+                                          _usuarioModel.telefono =
+                                              phoneNumberController.text;
+                                          _usuarioModel.credencial =
+                                              ciController.text;
+                                          _usuarioModel.direccion =
+                                              directionController.text;
+                                          _controller
+                                              .updateUsuario(_usuarioModel);
+                                          setState(() {
+                                            _status = true;
+                                          });
                                         },
                                         shape: RoundedRectangleBorder(
                                             borderRadius:

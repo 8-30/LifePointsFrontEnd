@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/provider/usuario/usuario_repository.dart';
-import 'package:life_point/screens/profile/profile_ui.dart';
 import 'package:life_point/screens/ui.dart';
 
 class HomeController extends GetxController {
@@ -50,7 +49,14 @@ class HomeController extends GetxController {
     currerUserModel = await usuarioRepository.getCurrentUsuario(currentUserId);
   }
 
-  void profileUI() {
-    Get.to(() => ProfileUI());
+  void updateUsuario(UsuarioModel model) async {
+    currerUserModel.nombre = model.nombre;
+    currerUserModel.apellido = model.apellido;
+    currerUserModel.email = model.email;
+    currerUserModel.telefono = model.telefono;
+    currerUserModel.credencial = model.credencial;
+    currerUserModel.direccion = model.direccion;
+    final data = await usuarioRepository.putUsuario(currerUserModel);
+    print(data);
   }
 }
