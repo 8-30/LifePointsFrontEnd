@@ -13,6 +13,10 @@ class MensajeRepository {
     return _apiProvider.getAllMensajeInbox(id);
   }
 
+  Future<List<MensajeModel>> getLastMensajeInbox(id) {
+    return _apiProvider.getLastMensajeInbox(id);
+  }
+
   Future<MensajeModel> getMensajeid(id) {
     return _apiProvider.getMensajeid(id);
   }

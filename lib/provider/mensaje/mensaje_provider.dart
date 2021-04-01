@@ -35,6 +35,20 @@ class MensajeApiProvider {
     }
   }
 
+  Future<List<MensajeModel>> getLastMensajeInbox(id) async {
+    List<MensajeModel> mensajeList = List<MensajeModel>();
+    try {
+      Response response =
+          await _dio.get(_endpoint + "inboxlast/" + id.toString());
+      print(response.data);
+      mensajeList.add(MensajeModel.fromJson(response.data["mensaje"]));
+      return mensajeList;
+    } catch (error) {
+      print("Exception occured: $error stackTrace: ");
+      return null;
+    }
+  }
+
   Future<MensajeModel> getMensajeid(id) async {
     try {
       Response response = await _dio.get(_endpoint + id.toString());
