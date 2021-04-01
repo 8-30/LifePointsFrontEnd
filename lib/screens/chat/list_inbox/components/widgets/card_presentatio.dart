@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:life_point/models/inbox_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/screens/chat/inbox/chat_ui.dart';
@@ -24,13 +25,8 @@ class _CardPresentationState extends State<CardPresentation> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ChatUI(
-                  persona: widget.persona,
-                )),
-      ),
+      onTap: () => Get.to(() => ChatUI(persona: widget.persona),
+          transition: Transition.fadeIn),
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

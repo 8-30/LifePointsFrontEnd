@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:life_point/controllers/controllers.dart';
 import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/models/inbox_model.dart';
 import 'package:life_point/models/mensaje_model.dart';
@@ -23,11 +25,15 @@ class _BodyListInboxState extends State<BodyListInbox> {
   int idCliente;
   int idEmpleado;
   String emisor;
+  String nombreCliente;
   final usuarioIDStorage = GetStorage();
+  final HomeController homeController = Get.find();
 
   void initState() {
-    idCliente = /*usuarioIDStorage.read("usuarioID")*/ 47;
+    idCliente = usuarioIDStorage.read("usuarioID");
+    nombreCliente = homeController.currerUserModel.nombre;
     idEmpleado = 1;
+
     super.initState();
   }
 
@@ -37,7 +43,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
             child: FutureBuilder(
-                future: _inboxRepository.getInboxPersona(47),
+                future: _inboxRepository.getInboxPersona(idCliente),
                 builder: (context, AsyncSnapshot<List<InboxModel>> snapshot) {
                   return snapshot.hasData
                       ? ListView.builder(
@@ -64,7 +70,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
                                           if (snapshot3.hasData) {
                                             if (snapshot3.data[0].idEmisor ==
                                                 idCliente) {
-                                              emisor = "Usuario:";
+                                              emisor = nombreCliente + ":";
                                             } else {
                                               emisor = snapshot2
                                                       .data.persona.nombre +
@@ -76,8 +82,11 @@ class _BodyListInboxState extends State<BodyListInbox> {
                                                   inbox: snapshot.data[index],
                                                   persona:
                                                       snapshot2.data.persona,
-                                                  ultimoMensaje: emisor +
-                                                      snapshot3.data[0].texto)
+                                                  ultimoMensaje: (emisor +
+                                                          snapshot3
+                                                              .data[0].texto +
+                                                          "                    ")
+                                                      .substring(0, 20))
                                               : CardPresentation(
                                                   inbox: snapshot.data[index],
                                                   persona:
@@ -85,8 +94,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
                                                   ultimoMensaje: "sin mensajes",
                                                 );
                                         })
-                                    : Center(
-                                        child: CircularProgressIndicator());
+                                    : Center();
                               },
                             );
                           })

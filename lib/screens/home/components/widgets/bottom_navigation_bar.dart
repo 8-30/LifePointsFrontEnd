@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:life_point/screens/chat/list_inbox/list_inbox_ui.dart';
 import 'package:life_point/screens/profile/profile_ui.dart';
 
 class BottomNavigationBarTravel extends StatefulWidget {
@@ -22,6 +23,8 @@ class _BottomNavigationBarTravelState extends State<BottomNavigationBarTravel> {
     switch (index) {
       case 1:
         print("go mesage");
+        Get.to(() => ListInboxUI(), transition: Transition.fadeIn);
+        _selectedIndex = 0;
         break;
       case 2:
         print("go profile");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/screens/servicio/detalle_servicio_ui.dart';
 
@@ -14,13 +15,11 @@ class CardPresentation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DetalleServicioUI(
-                  persona: empleado.persona,
-                )),
-      ),
+      onTap: () => Get.to(
+          () => DetalleServicioUI(
+                persona: empleado.persona,
+              ),
+          transition: Transition.fadeIn),
       child: Card(
         color: Colors.black54,
         elevation: 8.0,

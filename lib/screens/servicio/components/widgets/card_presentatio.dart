@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:life_point/models/empleado_model.dart';
 import 'package:life_point/models/insumo_model.dart';
 import 'package:life_point/models/person_model.dart';
@@ -145,12 +146,8 @@ class _CardPresentationState extends State<CardPresentation> {
 
                           await _inboxRepository.postInbox(
                               widget.persona.idPersona, 47),
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChatUI(persona: widget.persona)),
-                          ),
+                          await Get.to(() => ChatUI(persona: widget.persona),
+                              transition: Transition.fadeIn),
                         })
               ],
             )));

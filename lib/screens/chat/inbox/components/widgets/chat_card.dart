@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_socket_io/flutter_socket_io.dart';
 import 'package:flutter_socket_io/socket_io_manager.dart';
+import 'package:get/instance_manager.dart';
+import 'package:life_point/controllers/home/home_controller.dart';
 import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/mensaje/mensaje_repository.dart';
@@ -27,6 +29,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   List<MensajeModel> mensajes;
   PersonaModel persona;
   int idInbox, cliente;
+  final HomeController homeController = Get.find();
 
   List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
@@ -121,7 +124,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       _isWriting = false;
     });
     Msg msg = new Msg(
-      emisor: "Usuario",
+      emisor: homeController.currerUserModel.nombre,
       enviado: true,
       txt: txt,
       animationController: new AnimationController(
@@ -143,7 +146,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   }
 
   _cargarMsg() {
-    String emisor = "Usuario";
+    String emisor = homeController.currerUserModel.nombre;
     bool enviado = true;
     //esto se pude mejorar
     _messages = <Msg>[];
@@ -154,7 +157,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
             emisor = persona.nombre;
             enviado = false;
           } else {
-            emisor = "Usuario";
+            emisor = homeController.currerUserModel.nombre;
             enviado = true;
           }
           Msg msg = new Msg(
