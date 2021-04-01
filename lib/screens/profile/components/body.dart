@@ -20,12 +20,12 @@ class _BodyProfileState extends State<BodyProfile>
   UsuarioModel _usuarioModel = UsuarioModel();
   @override
   void initState() {
-    nameController.text = _controller.currerUserModel.nombre;
-    lastnameController.text = _controller.currerUserModel.apellido;
-    emailController.text = _controller.currerUserModel.email;
-    phoneNumberController.text = _controller.currerUserModel.telefono;
-    ciController.text = _controller.currerUserModel.credencial;
-    directionController.text = _controller.currerUserModel.direccion;
+    nameController.text = _controller?.currerUserModel?.nombre;
+    lastnameController.text = _controller?.currerUserModel?.apellido;
+    emailController.text = _controller?.currerUserModel?.email;
+    phoneNumberController.text = _controller?.currerUserModel?.telefono;
+    ciController.text = _controller?.currerUserModel?.credencial;
+    directionController.text = _controller?.currerUserModel?.direccion;
     super.initState();
   }
 
@@ -204,7 +204,23 @@ class _BodyProfileState extends State<BodyProfile>
                                         textColor: Colors.white,
                                         color: Colors.green,
                                         onPressed: () {
-                                          print(nameController.text);
+                                          _usuarioModel.nombre =
+                                              nameController.text;
+                                          _usuarioModel.apellido =
+                                              lastnameController.text;
+                                          _usuarioModel.email =
+                                              emailController.text;
+                                          _usuarioModel.telefono =
+                                              phoneNumberController.text;
+                                          _usuarioModel.credencial =
+                                              ciController.text;
+                                          _usuarioModel.direccion =
+                                              directionController.text;
+                                          _controller
+                                              .updateUsuario(_usuarioModel);
+                                          setState(() {
+                                            _status = true;
+                                          });
                                         },
                                         shape: RoundedRectangleBorder(
                                             borderRadius:

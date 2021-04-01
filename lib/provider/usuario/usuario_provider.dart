@@ -34,8 +34,20 @@ class UsuarioApiProvider {
   Future<UsuarioModel> getCurrentUsuario(int uid) async {
     try {
       Response response = await _dio.get(_endpoint + uid.toString());
-      // print(response.data['usuario']);
+      print(response.data['usuario']);
       return UsuarioModel.fromJson(response.data['usuario']);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return null;
+    }
+  }
+
+  Future<dynamic> putUsuario(UsuarioModel model) async {
+    try {
+      Response response = await _dio.put(_endpoint + model.idUsuario.toString(),
+          data: model.toJson());
+      //print(response.data);
+      return response.data;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return null;

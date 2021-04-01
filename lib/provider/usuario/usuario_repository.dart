@@ -16,4 +16,8 @@ class UsuarioRepository {
   Future<UsuarioModel> getCurrentUsuario(int uid) {
     return _apiProvider.getCurrentUsuario(uid);
   }
+
+  Future<dynamic> putUsuario(UsuarioModel usuarioModel) {
+    return _apiProvider.putUsuario(usuarioModel);
+  }
 }
