@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/instance_manager.dart';
 import 'package:life_point/controllers/auth/auth.dart';
 import 'package:life_point/controllers/controllers.dart';
+import 'package:life_point/models/person_model.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/screens/widgets/avatar.dart';
 
@@ -20,12 +21,16 @@ class _BodyProfileState extends State<BodyProfile>
   UsuarioModel _usuarioModel = UsuarioModel();
   @override
   void initState() {
-    nameController.text = _controller?.currerUserModel?.nombre;
-    lastnameController.text = _controller?.currerUserModel?.apellido;
-    emailController.text = _controller?.currerUserModel?.email;
-    phoneNumberController.text = _controller?.currerUserModel?.telefono;
-    ciController.text = _controller?.currerUserModel?.credencial;
-    directionController.text = _controller?.currerUserModel?.direccion;
+    _usuarioModel.personaModel = PersonaModel();
+    nameController.text = _controller?.currerUserModel?.personaModel?.nombre;
+    lastnameController.text =
+        _controller?.currerUserModel?.personaModel?.apellido;
+    emailController.text = _controller?.currerUserModel?.personaModel?.email;
+    phoneNumberController.text =
+        _controller?.currerUserModel?.personaModel?.telefono;
+    ciController.text = _controller?.currerUserModel?.personaModel?.credencial;
+    directionController.text =
+        _controller?.currerUserModel?.personaModel?.direccion;
     super.initState();
   }
 
@@ -39,7 +44,7 @@ class _BodyProfileState extends State<BodyProfile>
               Avatar(),
               Text("¡Hola!"),
               Text(
-                _controller?.currerUserModel?.usuario,
+                _controller?.currerUserModel?.personaModel?.usuario,
                 style: TextStyle(fontSize: 20, letterSpacing: 1.5),
               ),
               Container(
@@ -204,17 +209,17 @@ class _BodyProfileState extends State<BodyProfile>
                                         textColor: Colors.white,
                                         color: Colors.green,
                                         onPressed: () {
-                                          _usuarioModel.nombre =
+                                          _usuarioModel.personaModel.nombre =
                                               nameController.text;
-                                          _usuarioModel.apellido =
+                                          _usuarioModel.personaModel.apellido =
                                               lastnameController.text;
-                                          _usuarioModel.email =
+                                          _usuarioModel.personaModel.email =
                                               emailController.text;
-                                          _usuarioModel.telefono =
+                                          _usuarioModel.personaModel.telefono =
                                               phoneNumberController.text;
-                                          _usuarioModel.credencial =
-                                              ciController.text;
-                                          _usuarioModel.direccion =
+                                          _usuarioModel.personaModel
+                                              .credencial = ciController.text;
+                                          _usuarioModel.personaModel.direccion =
                                               directionController.text;
                                           _controller
                                               .updateUsuario(_usuarioModel);

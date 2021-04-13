@@ -29,9 +29,9 @@ class HomeController extends GetxController {
     Get.snackbar(
         "ID USER AUTENTICADO",
         "HOLA: " +
-            currerUserModel.nombre +
+            currerUserModel.personaModel.nombre +
             " " +
-            currerUserModel.apellido +
+            currerUserModel.personaModel.apellido +
             " ID: " +
             currentUserId.toString(),
         icon: Icon(
@@ -50,12 +50,12 @@ class HomeController extends GetxController {
   }
 
   void updateUsuario(UsuarioModel model) async {
-    currerUserModel.nombre = model.nombre;
-    currerUserModel.apellido = model.apellido;
-    currerUserModel.email = model.email;
-    currerUserModel.telefono = model.telefono;
-    currerUserModel.credencial = model.credencial;
-    currerUserModel.direccion = model.direccion;
+    currerUserModel.personaModel.nombre = model.personaModel.nombre;
+    currerUserModel.personaModel.apellido = model.personaModel.apellido;
+    currerUserModel.personaModel.email = model.personaModel.email;
+    currerUserModel.personaModel.telefono = model.personaModel.telefono;
+    currerUserModel.personaModel.credencial = model.personaModel.credencial;
+    currerUserModel.personaModel.direccion = model.personaModel.direccion;
     final data = await usuarioRepository.putUsuario(currerUserModel);
     if (!data) {
       Get.snackbar("ERROR", "NO SE PUDO ACTUALIZAR EL USUARIO",

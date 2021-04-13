@@ -8,10 +8,10 @@ class UsuarioApiProvider {
 
   Future<UsuarioModel> postUsuario(UsuarioModel usuarioModel) async {
     try {
-      //print(usuarioModel.toJson());
+      print(usuarioModel.toJson());
       Response response =
           await _dio.post(_endpoint, data: usuarioModel.toJson());
-      //print(response.data);
+      print(response.data);
       return UsuarioModel.fromJson2(response.data['usuario']);
     } catch (error) {
       print("Exception occured: $error ");
@@ -25,6 +25,19 @@ class UsuarioApiProvider {
           await _dio.get(_endpoint + "username/$usuario/password/$contrasenia");
       //print(response.data['persona']);
       return PersonaModel.fromJson(response.data['persona']);
+    } catch (error) {
+      print("Exception occured: $error ");
+      return null;
+    }
+  }
+
+  Future<dynamic> autenticacionUsuario(
+      String usuario, String contrasenia) async {
+    try {
+      Response response = await _dio.post(_endpoint + "/autenticacion",
+          data: {"usuario": usuario, "contrasenia": contrasenia});
+      //print(response.data["idPersona"]);
+      return response;
     } catch (error) {
       print("Exception occured: $error ");
       return null;

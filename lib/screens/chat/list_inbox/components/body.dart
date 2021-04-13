@@ -31,7 +31,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
 
   void initState() {
     idCliente = usuarioIDStorage.read("usuarioID");
-    nombreCliente = homeController.currerUserModel.nombre;
+    nombreCliente = homeController.currerUserModel.personaModel.nombre;
     idEmpleado = 1;
 
     super.initState();

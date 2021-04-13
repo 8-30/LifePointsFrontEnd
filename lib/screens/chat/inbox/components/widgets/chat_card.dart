@@ -124,7 +124,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       _isWriting = false;
     });
     Msg msg = new Msg(
-      emisor: homeController.currerUserModel.nombre,
+      emisor: homeController.currerUserModel.personaModel.nombre,
       enviado: true,
       txt: txt,
       animationController: new AnimationController(
@@ -146,7 +146,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   }
 
   _cargarMsg() {
-    String emisor = homeController.currerUserModel.nombre;
+    String emisor = homeController.currerUserModel.personaModel.nombre;
     bool enviado = true;
     //esto se pude mejorar
     _messages = <Msg>[];
@@ -157,7 +157,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
             emisor = persona.nombre;
             enviado = false;
           } else {
-            emisor = homeController.currerUserModel.nombre;
+            emisor = homeController.currerUserModel.personaModel.nombre;
             enviado = true;
           }
           Msg msg = new Msg(

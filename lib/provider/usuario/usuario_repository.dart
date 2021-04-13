@@ -13,6 +13,11 @@ class UsuarioRepository {
     return _apiProvider.authUsuario(usuario, contrasenia);
   }
 
+  Future<dynamic> autenticacionUsuario(
+      String usuario, String contrasenia) async {
+    return await _apiProvider.autenticacionUsuario(usuario, contrasenia);
+  }
+
   Future<UsuarioModel> getCurrentUsuario(int uid) {
     return _apiProvider.getCurrentUsuario(uid);
   }
