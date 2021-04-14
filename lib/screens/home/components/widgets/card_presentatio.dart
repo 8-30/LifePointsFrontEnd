@@ -24,8 +24,18 @@ class CardPresentation extends StatelessWidget {
         color: Colors.black54,
         elevation: 8.0,
         child: ListTile(
-          leading: Image(
-            image: NetworkImage(empleado.persona.foto),
+          leading: CircleAvatar(
+            foregroundColor: Colors.blue,
+            backgroundColor: Colors.white,
+            radius: 30.0,
+            child: ClipOval(
+              child: Image(
+                image: NetworkImage(empleado.persona.foto),
+                fit: BoxFit.cover,
+                width: 50.0,
+                height: 50.0,
+              ),
+            ),
           ),
           title: Text(empleado.persona.nombre + " " + empleado.persona.apellido,
               style: estiloTexto),

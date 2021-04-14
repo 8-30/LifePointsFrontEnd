@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/instance_manager.dart';
@@ -5,7 +9,7 @@ import 'package:life_point/controllers/auth/auth.dart';
 import 'package:life_point/controllers/controllers.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/models/usuario_model.dart';
-import 'package:life_point/screens/widgets/avatar.dart';
+import 'package:life_point/screens/profile/widgets/upload_logo.dart';
 
 class BodyProfile extends StatefulWidget {
   const BodyProfile({Key key}) : super(key: key);
@@ -18,9 +22,20 @@ class _BodyProfileState extends State<BodyProfile>
     with SingleTickerProviderStateMixin, Auth {
   bool _status = true;
   final HomeController _controller = Get.find();
+  final picker = ImagePicker();
+  File imageFile;
+  //? Este es el archivo para subir el repositorio de almacenamiento externo
+  //? Cuando Guarde de devolver el valor el url de la foto...
+
   UsuarioModel _usuarioModel = UsuarioModel();
+
   @override
   void initState() {
+    setValues();
+    super.initState();
+  }
+
+  void setValues() {
     _usuarioModel.personaModel = PersonaModel();
     nameController.text = _controller?.currerUserModel?.personaModel?.nombre;
     lastnameController.text =
@@ -31,7 +46,28 @@ class _BodyProfileState extends State<BodyProfile>
     ciController.text = _controller?.currerUserModel?.personaModel?.credencial;
     directionController.text =
         _controller?.currerUserModel?.personaModel?.direccion;
-    super.initState();
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await picker.getImage(source: source);
+      File cropped = await ImageCropper.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 100,
+        maxWidth: 700,
+        maxHeight: 700,
+        compressFormat: ImageCompressFormat.png,
+        androidUiSettings: AndroidUiSettings(
+          backgroundColor: Colors.white,
+        ),
+      );
+      setState(() {
+        imageFile = cropped;
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -41,7 +77,10 @@ class _BodyProfileState extends State<BodyProfile>
         children: [
           Column(
             children: [
-              Avatar(),
+              UploadPhoto(
+                image: imageFile,
+                press: () => buildShowMaterialModalBottomSheet(context),
+              ),
               Text("¡Hola!"),
               Text(
                 _controller?.currerUserModel?.personaModel?.usuario,
@@ -244,6 +283,7 @@ class _BodyProfileState extends State<BodyProfile>
                                         onPressed: () {
                                           setState(() {
                                             _status = true;
+                                            setValues();
                                           });
                                         },
                                         shape: RoundedRectangleBorder(
@@ -284,6 +324,45 @@ class _BodyProfileState extends State<BodyProfile>
           _status = false;
         });
       },
+    );
+  }
+
+  Future buildShowMaterialModalBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+          child: Row(
+        children: [
+          SizedBox(
+            width: 20.0,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(Icons.image),
+                iconSize: 40.0,
+                onPressed: () => pickImage(ImageSource.gallery),
+              ),
+              Text("Galeria"),
+            ],
+          ),
+          SizedBox(
+            width: 20.0,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(Icons.camera),
+                iconSize: 40.0,
+                onPressed: () => pickImage(ImageSource.camera),
+              ),
+              Text("Camara"),
+            ],
+          ),
+        ],
+      )),
     );
   }
 }
