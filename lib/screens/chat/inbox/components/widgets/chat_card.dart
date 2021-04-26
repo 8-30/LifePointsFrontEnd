@@ -47,7 +47,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     socketIO.init();
     socketIO.subscribe('receive_message', (data) {
       if (data.toString().contains(idInbox.toString() + "}")) {
-        _buscarMsg(idInbox);
+        _recibirMsg(idInbox);
       }
     });
     socketIO.connect();
@@ -118,7 +118,7 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     );
   }
 
-  void _submitMsg(String txt) {
+  void _submitMsg(String txt) async {
     _textController.clear();
     setState(() {
       _isWriting = false;
@@ -130,18 +130,21 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       animationController: new AnimationController(
           vsync: this, duration: new Duration(milliseconds: 800)),
     );
-    setState(() {
-      _messages.insert(0, msg);
-    });
     msg.animationController.forward();
-    _mensajeRepository.postMensaje(txt, idInbox, cliente);
-    print("mande el socket");
-    socketIO.sendMessage(
-        'send_message', '{idInbox: ' + idInbox.toString() + '}');
+    bool val = await _mensajeRepository.postMensaje(txt, idInbox, cliente);
+    if (val) {
+      print("mande el socket");
+      socketIO.sendMessage(
+          'send_message', '{idInbox: ' + idInbox.toString() + '}');
+      setState(() {
+        _messages.insert(0, msg);
+      });
+    }
   }
 
   Future<void> _buscarMsg(idInbox) async {
     this.mensajes = await _mensajeRepository.getAllMensajeInbox(idInbox);
+    setState(() {});
     await _cargarMsg();
   }
 
@@ -173,6 +176,38 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
           msg.animationController.forward();
         });
       } catch (e) {}
+    }
+  }
+
+  _recibirMsg(idInbox) async {
+    List<MensajeModel> listaMensajes =
+        await _mensajeRepository.getAllMensajeInbox(idInbox);
+    String emisor = homeController.currerUserModel.personaModel.nombre;
+    bool enviado = true;
+    print("entrox2");
+    print(listaMensajes.length.toString() + "/" + _messages.length.toString());
+    if (listaMensajes.length > _messages.length) {
+      for (var i = _messages.length; i < listaMensajes.length; i++) {
+        if (listaMensajes[i].idEmisor == persona.idPersona) {
+          emisor = persona.nombre;
+          enviado = false;
+        } else {
+          emisor = homeController.currerUserModel.personaModel.nombre;
+          enviado = true;
+        }
+        Msg msg = new Msg(
+          enviado: enviado,
+          emisor: emisor,
+          txt: listaMensajes[i].texto,
+          animationController: new AnimationController(
+              vsync: this, duration: new Duration(milliseconds: 800)),
+        );
+        print(msg.txt);
+        setState(() {
+          _messages.insert(0, msg);
+        });
+        msg.animationController.forward();
+      }
     }
   }
 

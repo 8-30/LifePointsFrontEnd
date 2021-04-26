@@ -60,7 +60,7 @@ class MensajeApiProvider {
     }
   }
 
-  Future<MensajeModel> postMensaje(String texto, int id, int idEmisor) async {
+  Future<bool> postMensaje(String texto, int id, int idEmisor) async {
     try {
       MensajeModel mensaje = new MensajeModel(
           idMensaje: null,
@@ -70,10 +70,10 @@ class MensajeApiProvider {
           estado: false);
       print(mensaje.toJson());
       await _dio.post(_endpoint, data: mensaje.toJson());
-      return null;
+      return true;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+      return false;
     }
   }
 }
