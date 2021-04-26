@@ -38,39 +38,42 @@ class _CardPresentationState extends State<CardPresentation> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-                    child: CircleAvatar(
-                      foregroundColor: Colors.blue,
-                      backgroundColor: Colors.white,
-                      radius: 40.0,
-                      child: ClipOval(
-                        child: Image(
-                          image: NetworkImage(widget.persona.foto),
-                          height: 80,
-                          width: 80,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                      child: CircleAvatar(
+                        foregroundColor: Colors.blue,
+                        backgroundColor: Colors.white,
+                        radius: 40.0,
+                        child: ClipOval(
+                          child: Image(
+                            image: NetworkImage(widget.persona.foto),
+                            height: 80,
+                            width: 80,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${widget.persona.nombre} ${widget.persona.apellido}",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                      Text("Genero: ${widget.persona.genero}"),
-                      Text("Edad: 24"),
-                      Text("Telefono: ${widget.persona.telefono}"),
-                    ],
-                  ),
-                ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${widget.persona.nombre} ${widget.persona.apellido}",
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        Text("Genero: ${widget.persona.genero}"),
+                        Text("Edad: 24"),
+                        Text("Telefono: ${widget.persona.telefono}"),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -78,8 +81,18 @@ class _CardPresentationState extends State<CardPresentation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Direccion: ${widget.persona.direccion}"),
-                  Text("Email: ${widget.persona.email}"),
+                  RichText(
+                      text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                        TextSpan(text: "Direccion: ${widget.persona.direccion}")
+                      ])),
+                  RichText(
+                      text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                        TextSpan(text: "Email: ${widget.persona.email}")
+                      ]))
                 ],
               ),
             ),
