@@ -8,7 +8,7 @@ class EmpleadoApiProvider {
   Future<List<EmpleadoModel>> getAllEmpleados() async {
     List<EmpleadoModel> empleadoList = List<EmpleadoModel>();
     try {
-      Response response = await _dio.get(_endpoint);
+      Response response = await _dio.get(_endpoint + "enable");
       print(response.data["empleados"]);
       for (var data in response.data["empleados"]) {
         empleadoList.add(EmpleadoModel.fromJson(data));

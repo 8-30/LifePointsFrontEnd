@@ -68,7 +68,7 @@ class _CardPresentationState extends State<CardPresentation> {
                           style: TextStyle(fontSize: 25),
                         ),
                         Text("Genero: ${widget.persona.genero}"),
-                        Text("Edad: 24"),
+                        //Text("Edad: 24"),
                         Text("Telefono: ${widget.persona.telefono}"),
                       ],
                     ),
@@ -109,6 +109,8 @@ class _CardPresentationState extends State<CardPresentation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text("Nombre del Servicio: "),
+                  Text(widget.empleado.nombreServicio),
                   Text("Descripcion: "),
                   RichText(
                       text: TextSpan(

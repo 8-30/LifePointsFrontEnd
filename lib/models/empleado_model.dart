@@ -6,6 +6,7 @@ class EmpleadoModel {
   double tarifa;
   double calificacion;
   String descripcion;
+  String nombreServicio;
   PersonaModel persona;
 
 //  Empleado Empleado;
@@ -15,6 +16,7 @@ class EmpleadoModel {
     this.tarifa,
     this.calificacion,
     this.descripcion,
+    this.nombreServicio,
     this.persona,
   });
 
@@ -22,7 +24,8 @@ class EmpleadoModel {
     return EmpleadoModel(
       idEmpleado: json['idEmpleado'],
       empresa: json['empresa'],
-      tarifa: json['tarifa'],
+      nombreServicio: json['nombreServicio'],
+      tarifa: json['tarifa'].toDouble(),
       calificacion: json['calificacion']?.toDouble(),
       descripcion: json['descripcion'],
       persona: PersonaModel.fromJson(json['persona']),
@@ -32,6 +35,7 @@ class EmpleadoModel {
   Map<String, dynamic> toJson() => {
         "idEmpleado": idEmpleado,
         "empresa": empresa,
+        "nombreServicio": nombreServicio,
         "tarifa": tarifa,
         "calificacion": calificacion,
         "descripcion": descripcion,

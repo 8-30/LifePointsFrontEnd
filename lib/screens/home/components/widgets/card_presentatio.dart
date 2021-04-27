@@ -40,7 +40,7 @@ class CardPresentation extends StatelessWidget {
           title: Text(empleado.persona.nombre + " " + empleado.persona.apellido,
               style: estiloTexto),
           subtitle: Text(
-              empleado.descripcion +
+              empleado.nombreServicio +
                   "\n" +
                   empleado.persona.direccion +
                   "\n" +
