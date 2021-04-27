@@ -82,8 +82,10 @@ class _BodyProfileState extends State<BodyProfile>
             Column(
               children: [
                 UploadPhoto(
+                  photURL: _controller?.currerUserModel?.personaModel?.foto,
                   image: imageFile,
                   press: () => buildShowMaterialModalBottomSheet(context),
+                  enable: _status,
                 ),
                 Text("¡Hola!"),
                 Text(
@@ -306,8 +308,8 @@ class _BodyProfileState extends State<BodyProfile>
                                               _usuarioModel
                                                       .personaModel.direccion =
                                                   directionController.text;
-                                              _controller
-                                                  .updateUsuario(_usuarioModel);
+                                              _controller.updateUsuario(
+                                                  _usuarioModel, imageFile);
                                               setState(() {
                                                 _status = true;
                                               });

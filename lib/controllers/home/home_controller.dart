@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -49,14 +51,14 @@ class HomeController extends GetxController {
     currerUserModel = await usuarioRepository.getCurrentUsuario(currentUserId);
   }
 
-  void updateUsuario(UsuarioModel model) async {
+  void updateUsuario(UsuarioModel model, File file) async {
     currerUserModel.personaModel.nombre = model.personaModel.nombre;
     currerUserModel.personaModel.apellido = model.personaModel.apellido;
     currerUserModel.personaModel.email = model.personaModel.email;
     currerUserModel.personaModel.telefono = model.personaModel.telefono;
     currerUserModel.personaModel.credencial = model.personaModel.credencial;
     currerUserModel.personaModel.direccion = model.personaModel.direccion;
-    final data = await usuarioRepository.putUsuario(currerUserModel);
+    final data = await usuarioRepository.putUsuario(currerUserModel, file);
     if (!data) {
       Get.snackbar("ERROR", "NO SE PUDO ACTUALIZAR EL USUARIO",
           icon: Icon(

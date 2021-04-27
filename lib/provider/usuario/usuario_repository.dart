@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'usuario_provider.dart';
@@ -22,7 +24,7 @@ class UsuarioRepository {
     return _apiProvider.getCurrentUsuario(uid);
   }
 
-  Future<dynamic> putUsuario(UsuarioModel usuarioModel) {
-    return _apiProvider.putUsuario(usuarioModel);
+  Future<dynamic> putUsuario(UsuarioModel usuarioModel, File file) {
+    return _apiProvider.putUsuario(usuarioModel, file);
   }
 }
