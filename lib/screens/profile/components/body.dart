@@ -49,7 +49,8 @@ class _BodyProfileState extends State<BodyProfile>
         _controller?.currerUserModel?.personaModel?.direccion;
   }
 
-  Future<void> pickImage(ImageSource source) async {
+  Future<void> pickImage(ImageSource source, BuildContext context) async {
+    Navigator.pop(context);
     try {
       final pickedFile = await picker.getImage(source: source);
       File cropped = await ImageCropper.cropImage(
@@ -199,7 +200,6 @@ class _BodyProfileState extends State<BodyProfile>
                                 hintText: "178216849683",
                               ),
                               enabled: !_status,
-                              autofocus: !_status,
                             ),
                           ],
                         ),
@@ -223,7 +223,6 @@ class _BodyProfileState extends State<BodyProfile>
                                 hintText: "tucorreo@gmail.com",
                               ),
                               enabled: !_status,
-                              autofocus: !_status,
                             ),
                           ],
                         ),
@@ -248,7 +247,6 @@ class _BodyProfileState extends State<BodyProfile>
                                 hintText: "09999999999",
                               ),
                               enabled: !_status,
-                              autofocus: !_status,
                             ),
                           ],
                         ),
@@ -272,7 +270,6 @@ class _BodyProfileState extends State<BodyProfile>
                                 hintText: "Tu Dirección",
                               ),
                               enabled: !_status,
-                              autofocus: !_status,
                             ),
                           ],
                         ),
@@ -394,7 +391,7 @@ class _BodyProfileState extends State<BodyProfile>
               IconButton(
                 icon: Icon(Icons.image),
                 iconSize: 40.0,
-                onPressed: () => pickImage(ImageSource.gallery),
+                onPressed: () => pickImage(ImageSource.gallery, context),
               ),
               Text("Galeria"),
             ],
@@ -408,7 +405,7 @@ class _BodyProfileState extends State<BodyProfile>
               IconButton(
                 icon: Icon(Icons.camera),
                 iconSize: 40.0,
-                onPressed: () => pickImage(ImageSource.camera),
+                onPressed: () => pickImage(ImageSource.camera, context),
               ),
               Text("Camara"),
             ],

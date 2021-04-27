@@ -22,7 +22,7 @@ class EmpleadoModel {
     return EmpleadoModel(
       idEmpleado: json['idEmpleado'],
       empresa: json['empresa'],
-      tarifa: json['tarifa'],
+      tarifa: json['tarifa'].toDouble(),
       calificacion: json['calificacion']?.toDouble(),
       descripcion: json['descripcion'],
       persona: PersonaModel.fromJson(json['persona']),
