@@ -46,8 +46,10 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     );
     socketIO.init();
     socketIO.subscribe('receive_message', (data) {
-      if (data.toString().contains(idInbox.toString() + "}")) {
-        _recibirMsg(idInbox);
+      if (mounted) {
+        if (data.toString().contains(idInbox.toString() + "}")) {
+          _recibirMsg(idInbox);
+        }
       }
     });
     socketIO.connect();
@@ -216,8 +218,8 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     for (Msg msg in _messages) {
       msg.animationController.dispose();
     }
-    socketIO.disconnect();
-    socketIO.destroy();
+    //socketIO.disconnect();
+    //socketIO.destroy();
     super.dispose();
   }
 }
