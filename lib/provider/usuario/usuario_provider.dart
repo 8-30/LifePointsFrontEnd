@@ -81,7 +81,7 @@ class UsuarioApiProvider {
         .ref()
         .child("users")
         .child(userName)
-        .child('${basename(file.path)}')
+        .child('${basename(userName)}')
         .putFile(file)
         .then((value) {
       return value.ref.getDownloadURL();
