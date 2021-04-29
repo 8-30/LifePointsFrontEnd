@@ -1,4 +1,4 @@
-package com.example.life_point
+package com.lifepoint.life_point
 
 import io.flutter.embedding.android.FlutterActivity
 
