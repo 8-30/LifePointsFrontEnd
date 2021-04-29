@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:life_point/controllers/auth/auth.dart';
+import 'package:life_point/controllers/home/home_binding.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/models/usuario_model.dart';
 import 'package:life_point/screens/home/home_ui.dart';
@@ -18,6 +19,7 @@ class AuthController extends GetxController with Auth {
   RxList<String> addListCategories =
       ["Masculino", "Femenino", "Indefinido"].obs;
 
+  RxInt userID = RxInt();
   @override
   void onReady() {
     getUserAuth();
@@ -30,10 +32,12 @@ class AuthController extends GetxController with Auth {
           usernameController.text.trim(), passwordController.text.trim());
       if (response != null) {
         if (response.data["usuario"] == usernameController.text.trim()) {
-          print("AUTENTICACION CORRECTA");
-          int uid = response.data["idPersona"];
-          await usuarioIDStorage.write("usuarioID", uid);
-          Get.offAll(() => HomeUI());
+          usernameController.clear();
+          passwordController.clear();
+          print("---------AUTENTICACION CORRECTA---------------------");
+          userID.value = response.data["idPersona"];
+          await usuarioIDStorage.write("usuarioID", userID.value);
+          Get.offAll(() => HomeUI(), binding: HomeBinding());
         }
       } else {
         Get.snackbar(
@@ -94,10 +98,10 @@ class AuthController extends GetxController with Auth {
   }
 
   void getUserAuth() {
-    int userID = usuarioIDStorage.read("usuarioID");
-    print(userID);
-    if (userID != null) {
-      Get.offAll(() => HomeUI());
+    userID.value = usuarioIDStorage.read("usuarioID");
+    print("Se econtro un usuario: ${userID.value}");
+    if (userID.value != null) {
+      Get.offAll(() => HomeUI(), binding: HomeBinding());
     } else {
       print("USUARIO NO AUTENTICADO");
     }
