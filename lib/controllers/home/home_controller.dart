@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:life_point/controllers/auth/auth_contoller.dart';
 import 'package:life_point/models/usuario_model.dart';
+import 'package:life_point/provider/notifications/push_notification_provider.dart';
 import 'package:life_point/provider/usuario/usuario_repository.dart';
 import 'package:life_point/screens/ui.dart';
 
@@ -14,6 +15,7 @@ class HomeController extends GetxController {
   final AuthController authController = Get.find();
   final UsuarioRepository usuarioRepository = UsuarioRepository();
   final userID = GetStorage();
+  final pushNotificationProvider = new PushNotificationProvider();
   int currentUserId;
   UsuarioModel currerUserModel;
 
@@ -52,6 +54,8 @@ class HomeController extends GetxController {
   void getCurrentUser() async {
     currentUserId = await userID.read("usuarioID");
     currerUserModel = await usuarioRepository.getCurrentUsuario(currentUserId);
+    pushNotificationProvider.initNotifications(currerUserModel);
+    pushNotificationProvider.mensajes.listen((event) {});
   }
 
   void updateUsuario(UsuarioModel model, File file) async {

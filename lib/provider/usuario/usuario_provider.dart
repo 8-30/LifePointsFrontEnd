@@ -62,7 +62,6 @@ class UsuarioApiProvider {
   Future<dynamic> putUsuario(UsuarioModel model, File file) async {
     try {
       if (file != null) {
-        print("AQUI ESTOY");
         model.personaModel.foto =
             await uploadImage(file, model.personaModel.usuario);
       }

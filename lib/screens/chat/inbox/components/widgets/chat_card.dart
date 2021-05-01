@@ -7,6 +7,7 @@ import 'package:life_point/controllers/home/home_controller.dart';
 import 'package:life_point/models/mensaje_model.dart';
 import 'package:life_point/models/person_model.dart';
 import 'package:life_point/provider/mensaje/mensaje_repository.dart';
+import 'package:life_point/provider/notifications/notify_repository.dart';
 
 class ChatCard extends StatefulWidget {
   final PersonaModel persona;
@@ -26,6 +27,7 @@ class ChatCard extends StatefulWidget {
 class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
   SocketIO socketIO;
   MensajeRepository _mensajeRepository = MensajeRepository();
+  NotifyRepository _notifyRepository = NotifyRepository();
   List<MensajeModel> mensajes;
   PersonaModel persona;
   int idInbox, cliente;
@@ -53,7 +55,6 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       }
     });
     socketIO.connect();
-
     super.initState();
   }
 
@@ -134,6 +135,8 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     );
     msg.animationController.forward();
     bool val = await _mensajeRepository.postMensaje(txt, idInbox, cliente);
+    _notifyRepository.sendNotify(txt, idInbox, cliente,
+        homeController.currerUserModel.personaModel.nombre);
     if (val) {
       print("mande el socket");
       socketIO.sendMessage(
@@ -159,6 +162,10 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
       try {
         mensajes.forEach((element) {
           if (element.idEmisor == persona.idPersona) {
+            //actualizo los mensajes leidos
+            element.estado = true;
+            _mensajeRepository.putMensaje(element);
+            //
             emisor = persona.nombre;
             enviado = false;
           } else {
@@ -191,6 +198,10 @@ class ChatWindow extends State<ChatCard> with TickerProviderStateMixin {
     if (listaMensajes.length > _messages.length) {
       for (var i = _messages.length; i < listaMensajes.length; i++) {
         if (listaMensajes[i].idEmisor == persona.idPersona) {
+          //actualizo los mensajes leidos
+          listaMensajes[i].estado = true;
+          _mensajeRepository.putMensaje(listaMensajes[i]);
+          //
           emisor = persona.nombre;
           enviado = false;
         } else {

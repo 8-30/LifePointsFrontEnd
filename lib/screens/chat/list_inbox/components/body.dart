@@ -28,6 +28,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
   int idEmpleado;
   String emisor;
   String nombreCliente;
+  bool estado;
   List<InboxModel> listaInbox = List<InboxModel>();
   final usuarioIDStorage = GetStorage();
   final HomeController homeController = Get.find();
@@ -99,14 +100,18 @@ class _BodyListInboxState extends State<BodyListInbox> {
                                             if (snapshot3.data[0].idEmisor ==
                                                 idCliente) {
                                               emisor = nombreCliente + ":";
+                                              estado = true;
                                             } else {
                                               emisor = snapshot2
                                                       .data.persona.nombre +
                                                   ":";
+                                              estado = snapshot3.data[0].estado;
                                             }
                                           }
+
                                           return snapshot3.hasData
                                               ? CardPresentation(
+                                                  estado: estado,
                                                   inbox: snapshot.data[index],
                                                   persona:
                                                       snapshot2.data.persona,
@@ -120,6 +125,7 @@ class _BodyListInboxState extends State<BodyListInbox> {
                                                   persona:
                                                       snapshot2.data.persona,
                                                   ultimoMensaje: "sin mensajes",
+                                                  estado: true,
                                                 );
                                         })
                                     : Center();

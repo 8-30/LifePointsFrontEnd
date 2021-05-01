@@ -34,6 +34,7 @@ class UsuarioModel {
         "idPersona": personaModel.idPersona,
         "nombre": personaModel.nombre,
         "apellido": personaModel.apellido,
+        "notyKey": personaModel.notyKey,
         "nacimiento": "1997-10-10",
         "email": personaModel.email,
         "direccion": personaModel.direccion,
