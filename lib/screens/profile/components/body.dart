@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'package:get/route_manager.dart';
+import 'package:get/instance_manager.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/instance_manager.dart';
 import 'package:life_point/controllers/auth/auth.dart';
 import 'package:life_point/controllers/controllers.dart';
 import 'package:life_point/models/person_model.dart';

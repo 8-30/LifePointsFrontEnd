@@ -68,72 +68,78 @@ class _BodyListInboxState extends State<BodyListInbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-            child: FutureBuilder(
-                future: _inboxRepository.getInboxPersona(idCliente),
-                builder: (context, AsyncSnapshot<List<InboxModel>> snapshot) {
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            if (idCliente == snapshot.data[index].persona1) {
-                              idEmpleado = snapshot.data[index].persona2;
-                            } else {
-                              idEmpleado = snapshot.data[index].persona1;
-                            }
-                            return FutureBuilder(
-                              future:
-                                  _empleadoRepository.getEmpleado(idEmpleado),
-                              builder: (context,
-                                  AsyncSnapshot<EmpleadoModel> snapshot2) {
-                                return snapshot2.hasData
-                                    ? FutureBuilder(
-                                        future: _mensajeRepository
-                                            .getLastMensajeInbox(
-                                                snapshot.data[index].idInbox),
-                                        builder: (context,
-                                            AsyncSnapshot<List<MensajeModel>>
-                                                snapshot3) {
-                                          if (snapshot3.hasData) {
-                                            if (snapshot3.data[0].idEmisor ==
-                                                idCliente) {
-                                              emisor = nombreCliente + ":";
-                                              estado = true;
-                                            } else {
-                                              emisor = snapshot2
-                                                      .data.persona.nombre +
-                                                  ":";
-                                              estado = snapshot3.data[0].estado;
+    if (homeController.currerUserModel != null) {
+      return Container(
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+              child: FutureBuilder(
+                  future: _inboxRepository.getInboxPersona(idCliente),
+                  builder: (context, AsyncSnapshot<List<InboxModel>> snapshot) {
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              if (idCliente == snapshot.data[index].persona1) {
+                                idEmpleado = snapshot.data[index].persona2;
+                              } else {
+                                idEmpleado = snapshot.data[index].persona1;
+                              }
+                              return FutureBuilder(
+                                future:
+                                    _empleadoRepository.getEmpleado(idEmpleado),
+                                builder: (context,
+                                    AsyncSnapshot<EmpleadoModel> snapshot2) {
+                                  return snapshot2.hasData
+                                      ? FutureBuilder(
+                                          future: _mensajeRepository
+                                              .getLastMensajeInbox(
+                                                  snapshot.data[index].idInbox),
+                                          builder: (context,
+                                              AsyncSnapshot<List<MensajeModel>>
+                                                  snapshot3) {
+                                            if (snapshot3.hasData) {
+                                              if (snapshot3.data[0].idEmisor ==
+                                                  idCliente) {
+                                                emisor = nombreCliente + ":";
+                                                estado = true;
+                                              } else {
+                                                emisor = snapshot2
+                                                        .data.persona.nombre +
+                                                    ":";
+                                                estado =
+                                                    snapshot3.data[0].estado;
+                                              }
                                             }
-                                          }
 
-                                          return snapshot3.hasData
-                                              ? CardPresentation(
-                                                  estado: estado,
-                                                  inbox: snapshot.data[index],
-                                                  persona:
-                                                      snapshot2.data.persona,
-                                                  ultimoMensaje: (emisor +
-                                                          snapshot3
-                                                              .data[0].texto +
-                                                          "                    ")
-                                                      .substring(0, 20))
-                                              : CardPresentation(
-                                                  inbox: snapshot.data[index],
-                                                  persona:
-                                                      snapshot2.data.persona,
-                                                  ultimoMensaje: "sin mensajes",
-                                                  estado: true,
-                                                );
-                                        })
-                                    : Center();
-                              },
-                            );
-                          })
-                      : Center(child: CircularProgressIndicator());
-                })));
+                                            return snapshot3.hasData
+                                                ? CardPresentation(
+                                                    estado: estado,
+                                                    inbox: snapshot.data[index],
+                                                    persona:
+                                                        snapshot2.data.persona,
+                                                    ultimoMensaje: (emisor +
+                                                            snapshot3
+                                                                .data[0].texto +
+                                                            "                    ")
+                                                        .substring(0, 20))
+                                                : CardPresentation(
+                                                    inbox: snapshot.data[index],
+                                                    persona:
+                                                        snapshot2.data.persona,
+                                                    ultimoMensaje:
+                                                        "sin mensajes",
+                                                    estado: true,
+                                                  );
+                                          })
+                                      : Center();
+                                },
+                              );
+                            })
+                        : Center(child: CircularProgressIndicator());
+                  })));
+    } else {
+      return Center(child: CircularProgressIndicator());
+    }
   }
 
   Future<void> _cargarInbox() async {

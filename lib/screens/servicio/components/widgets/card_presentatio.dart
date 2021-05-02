@@ -163,10 +163,38 @@ class _CardPresentationState extends State<CardPresentation> {
                 color: Colors.green[400],
                 elevation: 5.0,
                 onPressed: () async => {
-                      await _inboxRepository.postInbox(
-                          widget.persona.idPersona, _controller?.currentUserId),
-                      await Get.to(() => ChatUI(persona: widget.persona),
-                          transition: Transition.fadeIn),
+                      if (_controller?.currerUserModel != null)
+                        {
+                          if (_controller.currerUserModel.enable)
+                            {
+                              await _inboxRepository.postInbox(
+                                  widget.persona.idPersona,
+                                  _controller?.currentUserId),
+                              await Get.to(
+                                  () => ChatUI(persona: widget.persona),
+                                  transition: Transition.fadeIn),
+                            }
+                          else
+                            {
+                              Get.snackbar("ERROR",
+                                  "Su usuario ha sido desabilitado, hable con el administrador",
+                                  icon: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
+                                  snackPosition: SnackPosition.BOTTOM)
+                            }
+                        }
+                      else
+                        {
+                          Get.snackbar("ERROR AL CARGAR",
+                              "Reinicie la app y asegurate de tener conexion a Internet",
+                              icon: Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
+                              snackPosition: SnackPosition.BOTTOM)
+                        }
                     })
           ],
         ),
