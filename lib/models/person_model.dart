@@ -11,6 +11,7 @@ class PersonaModel {
   String credencial;
   String contrasenia;
   String usuario;
+  String notyKey;
 //  Persona persona;
   PersonaModel({
     this.idPersona,
@@ -25,6 +26,7 @@ class PersonaModel {
     this.credencial,
     this.contrasenia,
     this.usuario,
+    this.notyKey,
   });
 
   static PersonaModel fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class PersonaModel {
       credencial: json['credencial'],
       contrasenia: json['contrasenia'],
       usuario: json['usuario'],
+      notyKey: json['notyKey'],
     );
   }
 
@@ -57,5 +60,6 @@ class PersonaModel {
         "credencial": credencial,
         "contrasenia": contrasenia,
         "usuario": nombre + apellido,
+        "notyKey": notyKey,
       };
 }

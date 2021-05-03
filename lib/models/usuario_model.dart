@@ -43,5 +43,6 @@ class UsuarioModel {
         "credencial": personaModel.credencial,
         "contrasenia": personaModel.contrasenia,
         "usuario": personaModel.usuario,
+        "notyKey": personaModel.notyKey
       };
 }
