@@ -72,12 +72,15 @@ class AuthController extends GetxController with Auth {
     newPersona.telefono = phoneNumberController.text;
     newPersona.contrasenia = passwordController.text;
     newPersona.usuario = usernameController.text.trim();
+    newPersona.notyKey = "1";
     _usuarioModel.personaModel = newPersona;
+
     try {
       _userCreatedModel = await _usuarioApiProvider.postUsuario(_usuarioModel);
       if (_userCreatedModel.idUsuario != null) {
         print("SE CREO USUARIO: " + _userCreatedModel.idUsuario.toString());
         await usuarioIDStorage.write("usuarioID", _userCreatedModel.idUsuario);
+        userID.value = _userCreatedModel.idUsuario;
         Get.offAll(() => HomeUI());
       } else {
         Get.snackbar(
