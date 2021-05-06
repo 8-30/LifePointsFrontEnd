@@ -30,7 +30,7 @@ class HomeController extends GetxController {
     Get.snackbar(
         "ID USER AUTENTICADO",
         "HOLA: ${currerUserModel.personaModel.nombre} ${currerUserModel.personaModel.apellido}" +
-            " ID: ${currentUserId.toString()}",
+            " ID: ${currerUserModel.personaModel.idPersona}",
         icon: Icon(
           Icons.info,
           color: Colors.red,

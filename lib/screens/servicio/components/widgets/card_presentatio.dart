@@ -167,12 +167,15 @@ class _CardPresentationState extends State<CardPresentation> {
                         {
                           if (_controller.currerUserModel.enable)
                             {
+                              print("entro"),
                               await _inboxRepository.postInbox(
                                   widget.persona.idPersona,
-                                  _controller?.currentUserId),
+                                  _controller?.currerUserModel?.idUsuario),
+                              print(widget.persona.idPersona),
                               await Get.to(
                                   () => ChatUI(persona: widget.persona),
                                   transition: Transition.fadeIn),
+                              print("salio"),
                             }
                           else
                             {
